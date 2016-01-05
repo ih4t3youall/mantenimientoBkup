@@ -2,7 +2,7 @@ package ar.com.mantenimiento.springsecurity.dao;
 
 import ar.com.mantenimiento.springsecurity.model.User;
 
-public interface UserDao {
+public interface IUserDao {
 
 	User findById(int id);
 	

@@ -20,7 +20,7 @@ public class LoginController {
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		model.addAttribute("greeting", "Hi, Welcome to mysite");
-		return "login/welcome";
+		return "login/login";
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)

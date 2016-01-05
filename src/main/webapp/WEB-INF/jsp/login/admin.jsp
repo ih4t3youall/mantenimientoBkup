@@ -8,5 +8,8 @@
 <body>
 	Dear <strong>${user}</strong>, Welcome to Admin Page.
 	<a href="<c:url value="/logout" />">Logout</a>
+	
+	
+	<h1> ahyiiiuaisduiasf soy admin sry</h1>
 </body>
 </html>

@@ -1,13 +1,15 @@
-package ar.com.mantenimiento.springsecurity.dao;
+package ar.com.mantenimiento.springsecurity.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import ar.com.mantenimiento.springsecurity.dao.AbstractDao;
+import ar.com.mantenimiento.springsecurity.dao.IUserDao;
 import ar.com.mantenimiento.springsecurity.model.User;
 
 @Repository("userDao")
-public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
+public class UserDao extends AbstractDao<Integer, User> implements IUserDao {
 
 	public User findById(int id) {
 		return getByKey(id);
