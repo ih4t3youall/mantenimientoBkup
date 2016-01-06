@@ -30,7 +30,7 @@ public class OperarioController {
 	
 	
 	@RequestMapping("operario/proyectos.htm")
-	public ModelAndView proyectos(){
+	public ModelAndView proyectos(String nombreProyecto){
 		
 		ModelAndView mav = new ModelAndView("operario/proyectos");
 		
