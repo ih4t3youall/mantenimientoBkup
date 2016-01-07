@@ -41,34 +41,31 @@
 <body>
 	<div id="owl-demo">
 
-		<div class="item">
-			<img
-				src="http://i.argentino.com.ar/images/2012/0716/736664-alquiler-de-maquinas-pala-retro-excavadora-y-minipala-20120716061409637.jpg"
-				alt="Owl Image">
-		</div>
-		<div class="item">
-			<img
-				src="http://www.gruponovaenergia.com/fotos/maquina-absorcion-vapor.jpg"
-				alt="Owl Image">
-		</div>
-		<div class="item">
-			<img
-				src="http://www.juntadeandalucia.es/averroes/iesalfonso_romero_barcojo/departamentos/tecnologia/unidades_didacticas/maquinas/imagenesmaquinas/maquina_portada.jpg"
-				alt="Owl Image">
-		</div>
-		<div class="item">
-			<img
-				src="http://www.egamaster.com/modelos/2017/n/M%C3%A1quinas_Para_Tubo-Maquinas_De_Prensado_Radial-PRESSMATIC_PORTABLE_CCA-PRESSMATIC_PORTABLE_CCA.png"
-				alt="Owl Image">
-		</div>
-		<div class="item">
-			<img
-				src="http://www.redusers.com/noticias/wp-content/uploads/2011/04/maquina_escribir.jpg"
-				alt="Owl Image">
-		</div>
+
+		<c:forEach items="${maquinas}" var="maquina">
+
+
+			<div class="item">
+
+
+				<div onclick="" class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">${maquina.nombre}</h3>
+					</div>
+					<div class="panel-body">${maquina.descripcion}</div>
+				</div>
+
+			</div>
+
+
+
+
+		</c:forEach>
+
+
 
 	</div>
-	 <button type="submit" onclick="volver()" class="btn btn-default">Volver</button>
+	<button type="submit" onclick="volver()" class="btn btn-default">Volver</button>
 
 
 

@@ -44,14 +44,28 @@
 
 <script type="text/javascript">
 	var pila = "";
-	$(document).ready(function() {
+	$(document).ready(
+			function() {
 
-		$('#contenedorSecundario').hide();
-		cambiarTituloProyecto();
+				$('#contenedorSecundario').hide();
+				cambiarTituloProyecto();
 
-	});
-	
-	
+				$(document).ready(
+						function() { // Script del Navegador
+							$("ul.subnavegador").not('.selected').hide();
+							$("a.desplegable").click(
+									function(e) {
+										var desplegable = $(this).parent()
+												.find("ul.subnavegador");
+										$('.desplegable').parent().find(
+												"ul.subnavegador").not(
+												desplegable).slideUp('slow');
+										desplegable.slideToggle('slow');
+										e.preventDefault();
+									})
+						});
+
+			});
 
 	function volver() {
 		cambiarTituloProyecto();
@@ -95,6 +109,13 @@
 	}
 </script>
 
+<style type="text/css">
+
+
+ li {list-style:none;}
+
+</style>
+
 </head>
 <body>
 	<div tabindex="-1" id="content" class="bs-docs-header">
@@ -114,13 +135,30 @@
 		<div class="col-md-2">
 
 			<ul class="nav nav-pills nav-stacked navegador">
-				<li role="presentation" class="active "><a class="desplegable" href="#">Usuario</a></li>
-				<ul class="nav nav-pills nav-stacked subnavegador">
-					<li>Deslogearse</li>
-				</ul>
-				<li role="presentation"><a href="#">Profile</a></li>
-				<li role="presentation"><a href="#">Messages</a></li>
+				<li role="presentation" class="active "><a href="#"
+					class="desplegable" title="Venta">Usuario</a>
+					<ul class="subnavegador ">
+<!-- 						<li role="presentation" class="active"><a href="#" title="Aparcamientos">Cambiar Contraseña</a></li> -->
+						<li role="presentation" >
+<button type="button" class="btn btn-default btn-sm">
+  <span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar Contraseña
+</button>
+
+
+</li>
+						<li role="presentation">
+<button type="button" class="btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Deslogearse
+</button>
+
+</li>
+					</ul></li>
+				<li><a class="desplegable" href="#" title="Alquiler">Mas Opciones</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a href="#" title="Viviendas">Todavia mas</a></li>
+					</ul></li>
 			</ul>
+
 
 
 

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.entity.Proyecto;
+import ar.com.mantenimiento.springsecurity.dao.impl.MaquinasDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectosDAO;
 
 @Controller
@@ -15,6 +17,9 @@ public class OperarioController {
 	
 	@Autowired
 	private ProyectosDAO proyectosDAO;
+	
+	@Autowired
+	private MaquinasDAO maquinasDAO;
 	
 	@RequestMapping("operario/inicio.htm")
 	public ModelAndView inicioOperario(){
@@ -32,7 +37,13 @@ public class OperarioController {
 	@RequestMapping("operario/proyectos.htm")
 	public ModelAndView proyectos(String nombreProyecto){
 		
+		List<Maquina> maquinas = maquinasDAO.findMaquinasByProyecto(1);
+		
+		
 		ModelAndView mav = new ModelAndView("operario/proyectos");
+		mav.addObject("maquinas",maquinas);
+		
+		
 		
 		return mav;
 		
