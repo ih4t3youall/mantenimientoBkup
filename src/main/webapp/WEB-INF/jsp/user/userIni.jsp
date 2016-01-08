@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,12 +47,44 @@
 
 
 <script type="text/javascript">
-	
+
+$(document).ready(
+		function() {
+
+			$(document).ready(
+					function() { // Script del Navegador
+						$("ul.subnavegador").not('.selected').hide();
+						$("a.desplegable").click(
+								function(e) {
+									var desplegable = $(this).parent()
+											.find("ul.subnavegador");
+									$('.desplegable').parent().find(
+											"ul.subnavegador").not(
+											desplegable).slideUp('slow');
+									desplegable.slideToggle('slow');
+									e.preventDefault();
+								})
+					});
+
+		});
+
+
+
+	function submit(id) {
+		
+		console.log(id);
+		$('#id').val(id);
+		$('#form').submit();
+
+	}
 </script>
 
 <style type="text/css">
 
 
+li {
+	list-style: none;
+}
 
 </style>
 
@@ -56,8 +92,107 @@
 <body>
 
 
-<h1> Bienvenido al club!</h1>
+	<div class="container">
+		<h1 id="titulo">Clientes</h1>
+		<p id="copete">Seleccione su empresa</p>
+		<div id="carbonads-container">
+			<div class="carbonad">
+				<div id="azcarbon"></div>
+			</div>
+		</div>
+	</div>
 
+
+	<div class="row">
+
+		<div class="col-md-2">
+		
+					<ul class="nav nav-pills nav-stacked navegador">
+				<li role="presentation" class="active "><a href="#"
+					class="desplegable" title="Venta">Usuario</a>
+					<ul class="subnavegador ">
+<!-- 						<li role="presentation" class="active"><a href="#" title="Aparcamientos">Cambiar Contraseña</a></li> -->
+						<li role="presentation" >
+<button type="button" class="btn btn-default btn-sm">
+  <span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> Cambiar Contraseña
+</button>
+
+
+</li>
+						<li role="presentation">
+<a href="<c:url value='/logout' />"><button
+									type="button" class="btn btn-default btn-sm">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									Deslogearse
+								</button></a>
+
+</li>
+					</ul></li>
+				<li><a class="desplegable" href="#" title="Alquiler">Mas Opciones</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a href="#" title="Viviendas">Todavia mas</a></li>
+					</ul></li>
+			</ul>
+
+		
+		
+		</div>
+
+
+
+
+
+
+		<div class="col-md-4">
+			<c:forEach items="${columnaA}" var="empresa">
+
+				<div style="cursor: pointer; cursor: hand"
+					class="panel panel-primary">
+					<div class="panel-heading">${empresa.nombre}</div>
+					<div class="panel-body">
+						<img onclick="submit('${empresa.id}')" height="125px" width="200px" alt=""
+							src="${empresa.urlImagen}">
+					</div>
+				</div>
+
+			</c:forEach>
+
+
+
+		</div>
+
+		<div class="col-md-4">
+			<c:forEach items="${columnaB}" var="empresa">
+
+				<div style="cursor: pointer; cursor: hand"
+					class="panel panel-primary">
+					<div class="panel-heading">${empresa.nombre}</div>
+					<div class="panel-body">
+						<img onclick="submit('${empresa.id}')"
+							height="125px" width="200px" alt="" src="${empresa.urlImagen}">
+					</div>
+				</div>
+
+			</c:forEach>
+
+
+
+		</div>
+		<div class="col-md-1"></div>
+
+
+	</div>
+
+
+	<form:form action="miEmpresa.htm" id="form" method="post"
+		style="display: none;" modelAttribute="empresa">
+		<table border="0">
+			<tr>
+				<td>id:</td>
+				<td><form:input id="id" path="id" /></td>
+			</tr>
+		</table>
+	</form:form>
 
 
 
