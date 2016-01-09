@@ -8,6 +8,7 @@ public interface IProyectosDAO {
 
 	
 	public List<Proyecto> getProyectosByUser(String nombre);
-	
+	public List<Proyecto> findAllProyectos();
+	List<Proyecto> findProyectsByEmpleadoId(int id);
 	
 }

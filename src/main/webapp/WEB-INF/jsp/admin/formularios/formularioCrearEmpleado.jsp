@@ -10,7 +10,7 @@
 
 	<form:form method="post" modelAttribute="empleadoDTO"
 		action="agregarEmpleado.htm" data-example-id="simple-input-groups"
-		class="bs-example bs-example-form">
+		class="bs-example bs-example-form" id="formCrearEmpleado">
 
 
 		<div class="input-group">
@@ -72,7 +72,7 @@
 
 <br>
 		
-		 <input type="submit" value="Crear" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+		 <input type="button" onclick="submitForm('formCrearEmpleado')" value="Crear" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
 		
 	</form:form>
 

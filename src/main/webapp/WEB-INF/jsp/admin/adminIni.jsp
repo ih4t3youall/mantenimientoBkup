@@ -64,10 +64,54 @@
 
 			});
 
+	function cambio() {
+
+		var id = $('#nombreEmpleado').val();
+		$.ajax({
+			url : "obtenerProyectosPorEmpleado.htm",
+			type : 'GET',
+			data : "id="+id,
+			success : function(data) {
+
+				data = $.parseJSON(data);
+				var tagProyectos="";
+				$.each(data, function(i, item) {
+					tagProyectos+="<span class='label label-primary'>"+item.nombre+"</span>";
+					
+				});
+				$("#contenedorAsignacion").empty();
+				$("#contenedorAsignacion").append(tagProyectos);
+				
+
+			},
+			error : function() {
+				alert("Ha ocurrido un error");
+			}
+		});
+
+	}
+
+	function formDesAsignarEmpleado() {
+
+		$.ajax({
+			url : "formDesAsignarEmpleado.htm",
+			type : 'GET',
+			success : function(response) {
+				$('#contenedor').empty();
+				$('#contenedor').append(response);
+
+			},
+			error : function() {
+				alert("Ha ocurrido un error");
+			}
+		});
+
+	}
+
 	function validarCamposNoVacios() {
 
 		var flag = true;
-		
+
 		$('.form-control').each(function(index, item) {
 
 			if ($(item).val() == "") {
@@ -80,31 +124,44 @@
 		return flag;
 
 	}
-	
-	
-	function submitForm(){
-		
+
+	function submitForm(form) {
+
 		var validado = validarCamposNoVacios();
-		
-		if(validado){
-			
-			alert('al server');
-		}else {
-			
-			
+
+		if (validado) {
+			$("#" + form).submit();
+			console.log("pase el submit");
+
+		} else {
+
 			alert('debe completar todos los campos');
-			
+
 		}
-		
+
 	}
-	
 
 	function formCrearEmpleado() {
 
-		
-		
 		$.ajax({
 			url : "formCrearEmpleado.htm",
+			type : 'GET',
+			success : function(response) {
+				$('#contenedor').empty();
+				$('#contenedor').append(response);
+
+			},
+			error : function() {
+				alert("Ha ocurrido un error");
+			}
+		});
+
+	}
+
+	function formAsignarEmpleado() {
+
+		$.ajax({
+			url : "formAsignarEmpleado.htm",
 			type : 'GET',
 			success : function(response) {
 				$('#contenedor').empty();
@@ -169,12 +226,12 @@ li {
 					</ul></li>
 				<li><a class="desplegable" href="#" title="Alquiler">Empleados</a>
 					<ul class="subnavegador">
-						<li role="presentation" onClick="formCrearEmpleado()">Crear
-							empleado</li>
-						<li role="presentation"><a href="#" title="Viviendas">Asignar
-								empleado </a></li>
-						<li role="presentation"><a href="#" title="Viviendas">Des-asignar
-								Empleado</a></li>
+						<li role="presentation" ><a onClick="formCrearEmpleado()" href="#" title="Viviendas"
+							onClick="formAsignarEmpleado()">Crear	empleado</a></li>
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="formAsignarEmpleado()">Asignar empleado </a></li>
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="formDesAsignarEmpleado()">Des-asignar Empleado</a></li>
 
 					</ul></li>
 			</ul>

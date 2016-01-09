@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Empleado creado exito</h1>
-
+<h1>Asociacion exitosa</h1>
+<a href="adminIni.htm">volver</a>
 </body>
 </html>

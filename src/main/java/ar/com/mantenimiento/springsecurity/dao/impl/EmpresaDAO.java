@@ -11,9 +11,6 @@ import ar.com.mantenimiento.springsecurity.dao.IEmpresasDAO;
 
 @Repository("empresaDAO")
 public class EmpresaDAO extends AbstractDao<Integer, Empresa>implements IEmpresasDAO {
-	{
-
-	}
 
 
 	@Override
