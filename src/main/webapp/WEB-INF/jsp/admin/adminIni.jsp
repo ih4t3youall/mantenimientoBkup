@@ -161,7 +161,7 @@
 
 				url : "getTemplateFormulario.htm",
 				type : "GET",
-				data : "idMaquina=" + idMaquina,
+				data : "idEmpresa="+empresa+"&idProyecto="+proyecto+"&idMaquina="+maquina,
 				success : function(response) {
 					$('#contenedor').empty();
 					$('#contenedor').append(response);
@@ -250,6 +250,33 @@ li {
 						</a></li>
 
 					</ul></li>
+
+				<li><a class="desplegable" href="#" title="Alquiler">Maquinas</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a
+							 href="#" title="Viviendas"
+							onClick="getForm('formCrearMaquina.htm')">Crear Maquina</a></li>
+
+					</ul></li>
+					
+					
+					<li><a class="desplegable" href="#" title="Alquiler">Empresa</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a
+							 href="#" title="Viviendas"
+							onClick="getForm('formCrearEmpresa.htm')">Crear Empresa</a></li>
+
+					</ul></li>
+					
+					<li><a class="desplegable" href="#" title="Alquiler">Proyecto</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a
+							 href="#" title="Viviendas"
+							onClick="getForm('formCrearProyecto.htm')">Crear Proyecto</a></li>
+
+					</ul></li>
+
+
 
 			</ul>
 

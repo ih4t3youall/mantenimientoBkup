@@ -3,14 +3,17 @@ package ar.com.mantenimiento.springsecurity.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.AbstractDao;
 import ar.com.mantenimiento.springsecurity.dao.IProyectosDAO;
 
 @Repository("proyectosDAO")
-public class ProyectosDAO extends AbstractDao<Integer, Proyecto>implements IProyectosDAO {
+public class ProyectoDAO extends AbstractDao<Integer, Proyecto>implements IProyectosDAO {
 
 	@Override
 	public List<Proyecto> getProyectosByUser(String nombre) {
@@ -77,6 +80,20 @@ public class ProyectosDAO extends AbstractDao<Integer, Proyecto>implements IProy
 		proyectos.add(proyecto1);
 		
 		return proyectos;
+		
+	}
+	@Override
+	public List<Proyecto> findProyectosByEmpresaId(int idEmpresa) {
+
+		//TODO FIXME 
+//		Criteria crit = createEntityCriteria();
+//		Empresa empresa = new Empresa();
+//		empresa.setId(idEmpresa);
+//		
+//		crit.add(Restrictions.eq("empresa_id", idEmpresa));
+//		List list = (List<Proyecto>)crit.list();
+		
+		return null;
 		
 	}
 

@@ -11,7 +11,6 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name ="form")
 @NamedQuery(name="Form.findAll", query="SELECT f FROM Form f")
 public class Form implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +54,10 @@ public class Form implements Serializable {
 	//bi-directional many-to-one association to EppOpcional
 	@OneToMany(mappedBy="form")
 	private List<EppOpcional> eppOpcionals;
+
+	//bi-directional many-to-one association to Maquina
+	@ManyToOne
+	private Maquina maquina;
 
 	//bi-directional many-to-one association to FormItem
 	@OneToMany(mappedBy="form")
@@ -193,6 +196,14 @@ public class Form implements Serializable {
 		eppOpcional.setForm(null);
 
 		return eppOpcional;
+	}
+
+	public Maquina getMaquina() {
+		return this.maquina;
+	}
+
+	public void setMaquina(Maquina maquina) {
+		this.maquina = maquina;
 	}
 
 	public List<FormItem> getFormItems() {

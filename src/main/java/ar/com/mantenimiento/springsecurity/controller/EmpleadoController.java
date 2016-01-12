@@ -8,24 +8,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-
 import ar.com.mantenimiento.entity.AsociacionEmpleadoProyecto;
 import ar.com.mantenimiento.entity.Empleado;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpleadoDAO;
-import ar.com.mantenimiento.springsecurity.dao.impl.ProyectosDAO;
+import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
+import ar.com.mantenimiento.utility.GsonUtility;
 
 @Controller
 public class EmpleadoController {
 
 	@Autowired
-	private ProyectosDAO proyectosDAO;
+	private ProyectoDAO proyectoDAO;
 	
 	@Autowired
 	private EmpleadoDAO empleadoDAO;
 	
-	
+	@Autowired 
+	private GsonUtility gsonUtility;
 	
 	
 	@RequestMapping("admin/agregarEmpleado.htm")
@@ -54,7 +54,7 @@ public class EmpleadoController {
 		
 		ModelAndView mav = new ModelAndView("admin/formularios/formularioAsignarEmpleado");
 		
-		List<Proyecto> proyectos = proyectosDAO.findAllProyectos();
+		List<Proyecto> proyectos = proyectoDAO.findAllProyectos();
 		
 		List<Empleado> empleados = empleadoDAO.findAllEmpleados();
 		
@@ -98,9 +98,9 @@ public class EmpleadoController {
 		
 		ModelAndView mav = new ModelAndView("admin/formularios/formularioDesAsignarEmpleado");
 		
-		 List<Proyecto> proyectos = proyectosDAO.findProyectsByEmpleadoId(id);
-		 Gson gson = new Gson();
-			String respuesta = gson.toJson(proyectos);
+		 List<Proyecto> proyectos = proyectoDAO.findProyectsByEmpleadoId(id);
+		 
+		 String respuesta = gsonUtility.getGson().toJson(proyectos);
 		
 		return respuesta;
 		

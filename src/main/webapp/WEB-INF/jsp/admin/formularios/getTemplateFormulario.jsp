@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#boton").prop('disabled', true);
+		// 		$("#boton").prop('disabled', true);
 	});
 
 	function agregarCampo() {
@@ -30,33 +30,32 @@
 
 	function submit() {
 
-	var enviar=[] ;
-		
+		var enviar = [];
+
 		$(".customInput").each(function(index, item) {
 			var aux;
-			 aux = $(item).val();
+			aux = $(item).val();
 
 			if (aux != "") {
 				enviar.push(aux);
 			}
 
 		});
-		
-		
+
 		$.ajax({
-			
-			url : "",
+
+			url : "submitTemplateFormulario.htm",
 			type : "GET",
-			success : function(response){
-				
-				
+			data : "camposFormulario=" + enviar + "&idMaquina=" + maquina,
+			success : function(response) {
+
 			},
-			error : function(error){
+			error : function(error) {
 				alert("ocurrio un error");
 				console.log(error);
-				
+
 			}
-			
+
 		});
 
 	}

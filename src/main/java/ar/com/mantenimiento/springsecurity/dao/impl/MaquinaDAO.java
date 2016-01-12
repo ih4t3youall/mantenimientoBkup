@@ -3,15 +3,28 @@ package ar.com.mantenimiento.springsecurity.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.springsecurity.dao.AbstractDao;
-import ar.com.mantenimiento.springsecurity.dao.IMaquinasDAO;
+import ar.com.mantenimiento.springsecurity.dao.IMaquinaDAO;
 
+@Repository("maquinaDAO")
+public class MaquinaDAO extends AbstractDao<Integer, Maquina>implements IMaquinaDAO {
 
-@Repository("maquinasDAO")
-public class MaquinasDAO extends AbstractDao<Integer, Maquina>implements IMaquinasDAO {
+	@Override
+	public Maquina findMaquinaById(int idMaquina) {
+		
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("id", idMaquina));
+		return (Maquina) crit.uniqueResult();
+		
+		
+		
+	}
+	
 
 	@Override
 	public List<Maquina> findMaquinasByProyecto(int idProyecto) {
@@ -26,7 +39,6 @@ public class MaquinasDAO extends AbstractDao<Integer, Maquina>implements IMaquin
 		Maquina maquina3 = new Maquina();
 		Maquina maquina4 = new Maquina();
 		Maquina maquina5 = new Maquina();
-		
 		maquina.setDescripcion("una descripcion");
 		maquina.setId(1);
 		maquina.setNombre("nombre maquina");
@@ -57,10 +69,8 @@ public class MaquinasDAO extends AbstractDao<Integer, Maquina>implements IMaquin
 		maquinas.add(maquina3);
 		maquinas.add(maquina4);
 		maquinas.add(maquina5);
-		return maquinas;
+		
+		return getAll(Maquina.class);
+		
 	}
-	
-	
-	
-
 }

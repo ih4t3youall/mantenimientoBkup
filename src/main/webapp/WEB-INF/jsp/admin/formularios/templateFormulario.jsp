@@ -63,7 +63,10 @@
 	}
 	function traerMaquinas() {
 		proyecto=$("#comboProyectos").val();
-		var idProyecto = $("#comboProyectos").val();;
+		var idProyecto = $("#comboProyectos").val();
+		
+		
+		if(proyecto != ""){
 		$.ajax({
 			url : "ajaxMaquinasProyectos.htm",
 			type : "GET",
@@ -86,15 +89,11 @@
 			},
 
 		});
-
+		}
+		
 	}
 	
 	
-	function seleccionoMaquina(){
-		
-		maquina = $("#comboMaquina").val();
-		
-	}
 	
 	
 </script>

@@ -3,6 +3,8 @@ package ar.com.mantenimiento.springsecurity.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpresaDAO;
 
 @Controller
+@Transactional
 public class UsuarioController {
 
 	
