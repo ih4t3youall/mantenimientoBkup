@@ -59,5 +59,8 @@ public class MaquinasDAO extends AbstractDao<Integer, Maquina>implements IMaquin
 		maquinas.add(maquina5);
 		return maquinas;
 	}
+	
+	
+	
 
 }

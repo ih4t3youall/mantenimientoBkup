@@ -18,7 +18,8 @@ import javax.persistence.Table;
 @Table(name="APP_USER")
 public class User {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name="SSO_ID", unique=true, nullable=false)

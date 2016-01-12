@@ -70,35 +70,18 @@
 		$.ajax({
 			url : "obtenerProyectosPorEmpleado.htm",
 			type : 'GET',
-			data : "id="+id,
+			data : "id=" + id,
 			success : function(data) {
 
 				data = $.parseJSON(data);
-				var tagProyectos="";
+				var tagProyectos = "";
 				$.each(data, function(i, item) {
-					tagProyectos+="<span class='label label-primary'>"+item.nombre+"</span>";
-					
+					tagProyectos += "<span class='label label-primary'>"
+							+ item.nombre + "</span>";
+
 				});
 				$("#contenedorAsignacion").empty();
 				$("#contenedorAsignacion").append(tagProyectos);
-				
-
-			},
-			error : function() {
-				alert("Ha ocurrido un error");
-			}
-		});
-
-	}
-
-	function formDesAsignarEmpleado() {
-
-		$.ajax({
-			url : "formDesAsignarEmpleado.htm",
-			type : 'GET',
-			success : function(response) {
-				$('#contenedor').empty();
-				$('#contenedor').append(response);
 
 			},
 			error : function() {
@@ -141,10 +124,10 @@
 
 	}
 
-	function formCrearEmpleado() {
+	function getForm(url) {
 
 		$.ajax({
-			url : "formCrearEmpleado.htm",
+			url : url,
 			type : 'GET',
 			success : function(response) {
 				$('#contenedor').empty();
@@ -158,20 +141,39 @@
 
 	}
 
-	function formAsignarEmpleado() {
+	function formCrearCheckList() {
 
-		$.ajax({
-			url : "formAsignarEmpleado.htm",
-			type : 'GET',
-			success : function(response) {
-				$('#contenedor').empty();
-				$('#contenedor').append(response);
+		var idMaquina = $('#comboMaquina').val();
 
-			},
-			error : function() {
-				alert("Ha ocurrido un error");
+		var flag = true;
+
+		$(".check").each(function(index, item) {
+
+			if ($(item).val() == "") {
+				console.log($(item).val());
+				flag = false;
 			}
 		});
+
+		if (flag) {
+
+			$.ajax({
+
+				url : "getTemplateFormulario.htm",
+				type : "GET",
+				data : "idMaquina=" + idMaquina,
+				success : function(response) {
+					$('#contenedor').empty();
+					$('#contenedor').append(response);
+
+				}
+
+			});
+		} else {
+
+			alert("debe completar todos los campos");
+
+		}
 
 	}
 </script>
@@ -226,14 +228,29 @@ li {
 					</ul></li>
 				<li><a class="desplegable" href="#" title="Alquiler">Empleados</a>
 					<ul class="subnavegador">
-						<li role="presentation" ><a onClick="formCrearEmpleado()" href="#" title="Viviendas"
-							onClick="formAsignarEmpleado()">Crear	empleado</a></li>
 						<li role="presentation"><a href="#" title="Viviendas"
-							onClick="formAsignarEmpleado()">Asignar empleado </a></li>
+							onClick="getForm('formCrearEmpleado.htm')">Crear empleado</a></li>
 						<li role="presentation"><a href="#" title="Viviendas"
-							onClick="formDesAsignarEmpleado()">Des-asignar Empleado</a></li>
+							onClick="getForm('formAsignarEmpleado.htm')">Asignar empleado
+						</a></li>
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="getForm('formDesAsignarEmpleado.htm')">Des-asignar
+								Empleado</a></li>
 
 					</ul></li>
+
+
+				<li><a class="desplegable" href="#" title="Alquiler">Formularios</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a
+							onClick="formularioCrearFormulario()" href="#" title="Viviendas"
+							onClick="formAsignarEmpleado()">Crear Formularios</a></li>
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="getForm('templateFormulario.htm')">Crear check list
+						</a></li>
+
+					</ul></li>
+
 			</ul>
 
 

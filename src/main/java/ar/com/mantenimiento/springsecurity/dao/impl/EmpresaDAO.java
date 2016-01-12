@@ -17,6 +17,7 @@ public class EmpresaDAO extends AbstractDao<Integer, Empresa>implements IEmpresa
 	public List<Empresa> findAllEmpresas() {
 
 		List<Empresa> empresas = new LinkedList<Empresa>();
+		
 		Empresa empresa = new Empresa();
 		Empresa empresa1 = new Empresa();
 		Empresa empresa2 = new Empresa();

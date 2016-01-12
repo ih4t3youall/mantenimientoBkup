@@ -28,7 +28,7 @@
 				class="form-control" />
 
 		</div>
-<br>
+		<br>
 		<div class="input-group">
 			<span id="basic-addon1" class="input-group-addon">DNI</span>
 			<form:input path="dni" type="text" aria-describedby="basic-addon1"
@@ -36,7 +36,7 @@
 
 		</div>
 
-<br>
+		<br>
 		<div class="input-group">
 			<span id="basic-addon1" class="input-group-addon">NE</span>
 			<form:input path="numeroEmpleado" type="text"
@@ -44,7 +44,7 @@
 				class="form-control" />
 
 		</div>
-<br>
+		<br>
 		<div class="input-group">
 			<span id="basic-addon1" class="input-group-addon">Dir</span>
 			<form:input path="direccion" type="text"
@@ -60,7 +60,7 @@
 				class="form-control" />
 
 		</div>
-<br>
+		<br>
 
 		<div class="input-group">
 			<span id="basic-addon1" class="input-group-addon">Cel</span>
@@ -70,10 +70,12 @@
 
 		</div>
 
-<br>
-		
-		 <input type="button" onclick="submitForm('formCrearEmpleado')" value="Crear" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
-		
+		<br>
+
+		<input type="button" onclick="submitForm('formCrearEmpleado')"
+			value="Crear" class="form-control" placeholder="Username"
+			aria-describedby="basic-addon1">
+
 	</form:form>
 
 
