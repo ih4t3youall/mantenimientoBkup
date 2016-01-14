@@ -1,8 +1,21 @@
 package ar.com.mantenimiento.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 
 /**
@@ -37,11 +50,22 @@ public class Proyecto implements Serializable {
 			@JoinColumn(name="maquina_id")
 			}
 		)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private List<Maquina> maquinas;
 
 	public Proyecto() {
 	}
 
+	
+	public void add(Maquina maquina){
+		if(maquinas == null){
+			maquinas = new ArrayList<Maquina>();
+			
+		}
+		maquinas.add(maquina);
+		
+	}
+	
 	public int getId() {
 		return this.id;
 	}

@@ -81,21 +81,19 @@
 		var idEmpresa = $('#comboEmpresas').val();
 		var empresa = buscarProyectoPorId(idEmpresa);
 
-		if (empresa.proyectos.length != 0) {
+		if (empresa != null) {
+			if (empresa.proyectos.length != 0) {
 
-			if (empresa != null) {
-
-				var nose = $(empresa.proyectos);
-				if (nose.nombre == null) {
-					console.log(nose.nombre);
-				}
+				$('#divComboMaquina').hide();
+				$('#comboMaquinas').empty();
+				$("#boton").prop('disabled', true);
+				$('#comboProyectos').empty();
+				$('#comboProyectos').append('<option value=""></option>');
 				$(empresa.proyectos).each(
 						function(index, proyecto) {
 
-							$('#comboProyectos').empty();
 							$('#divComboProyectos').show();
-							$('#comboProyectos').append(
-									'<option value=""></option>');
+
 							$('#comboProyectos').append(
 									'<option value='+proyecto.id+'>'
 											+ proyecto.nombre + '</option>');
@@ -113,6 +111,44 @@
 		}
 	}
 
+	function traerMaquinas() {
+		if ($("#comboProyectos").val() == "") {
+			$("#comboMaquinas").empty();
+			$("#divComboMaquina").hide();
+			$("#boton").prop('disabled', true);
+		} else {
+			console.log("entre al else");
+			var idEmpresa = $('#comboEmpresas').val();
+      
+			var idProyecto = $('#comboProyectos').val();
+			var emp = buscarProyectoPorId(idEmpresa);
+			
+			
+			$('#comboMaquinas').empty();
+			$('#comboMaquinas').append('<option value=""></option>');
+			$('#divComboMaquina').show();
+			$(emp.proyectos).each(
+					function(index, proyecto) {
+			
+            if(proyecto.id == idProyecto){
+              var maquinas=proyecto.maquinas;
+						$(maquinas).each(
+								function(index, maquina) {
+									console.log(maquina.nombre);
+
+									$('#comboMaquinas').append(
+											'<option value='+maquina.id+'>'
+													+ maquina.nombre
+													+ '</option>');
+
+									console.log("pase");
+
+								});
+            }
+					});
+		}
+	}
+
 	function ocultarDosCombos() {
 
 		$('#comboProyectos').empty();
@@ -122,38 +158,23 @@
 		$("#boton").prop('disabled', true);
 	}
 
-	function traerMaquinas() {
+	function modalAgregarMaquina() {
+		$(".modal-title").empty();
+		$(".modal-title").append("Crear Nueva Maquina");
 
-		if ($("#comboProyectos").val() == "") {
-			$("#comboMaquinas").empty();
-			$("#divComboMaquina").hide();
-			$("#boton").prop('disabled', true);
-		} else {
+		$.ajax({
 
-			var idEmpresa = $('#comboEmpresas').val();
-			var idProyecto = $('#comboProyectos').val();
+			url : "formCrearMaquinaModal.htm",
+			type : "GET",
+			success : function(response) {
+				$(".modal-body").empty();
+				$(".modal-body").append(response);
+				$('#myModal').modal('show');
 
-			var emp = buscarProyectoPorId(idEmpresa);
+			}
 
-			$(emp.proyectos).each(
-					function(index, proyecto) {
+		});
 
-						var maquinas = proyecto.maquinas;
-						$(maquinas).each(
-								function(index, maquina) {
-									$('#comboMaquinas').empty();
-									$('#comboMaquinas').append(
-											'<option value=""></option>');
-									$('#comboMaquinas').append(
-											'<option value='+maquina.id+'>'
-													+ maquina.nombre
-													+ '</option>');
-									$('#divComboMaquina').show();
-
-								});
-
-					});
-		}
 	}
 
 	function seleccionoMaquina() {
@@ -165,9 +186,65 @@
 		}
 
 	}
+
+	function submitFormMaquinaModal() {
+
+		var idEmpresa = $("#comboEmpresas").val();
+		var idProyecto = $("#comboProyectos").val();
+		var nombreMaquina = $("#nombreMaquina").val();
+		var descripcionMaquina = $("#descripcionMaquina").val();
+		console.log(descripcionMaquina);
+		console.log("apa!");
+		$.ajax({
+
+			url : "insertarMaquinaModal.htm",
+			type : "GET",
+			data : "nombre=" + nombreMaquina + "&descripcion="
+					+ descripcionMaquina + "&idProyecto=" + idProyecto
+					+ "&idEmpresa=" + idEmpresa,
+			success : function(response) {
+				$('#myModal').modal('hide');
+
+				data = $.parseJSON(response);
+
+				$("#comboMaquinas").append(
+						"<option value='"+data.id+"'>" + data.nombre
+								+ "</option>");
+
+			}
+
+		});
+
+	}
 </script>
 </head>
 <body>
+
+
+
+	<div class="container">
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
 
 
 	<h3>Crear nuevo checklist</h3>
@@ -208,13 +285,15 @@
 			id="comboMaquinas">
 
 
-		</select>
-		<label>Agregar Maquina</label>
-			<button type="button" onclick="agregarCampo()"
-		class="btn btn-default btn-sm">
-		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> +
-	</button>
-		
+		</select> <label>Agregar Maquina</label>
+		<button type="button" onclick="modalAgregarMaquina()"
+			class="btn btn-default btn-sm">
+			<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
+			+
+		</button>
+
+
+
 	</div>
 
 
