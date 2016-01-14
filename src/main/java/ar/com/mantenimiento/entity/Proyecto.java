@@ -81,5 +81,9 @@ public class Proyecto implements Serializable {
 	public void setMaquinas(List<Maquina> maquinas) {
 		this.maquinas = maquinas;
 	}
+	
+	
+	
+	
 
 }

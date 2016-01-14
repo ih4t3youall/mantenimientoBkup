@@ -40,6 +40,8 @@ public class OperarioController {
 	@RequestMapping("operario/proyectos.htm")
 	public ModelAndView proyectos(String nombreProyecto){
 		
+		
+		//FIXME este metodo no anda
 		List<Maquina> maquinas = maquinasDAO.findMaquinasByProyecto(1);
 		
 		

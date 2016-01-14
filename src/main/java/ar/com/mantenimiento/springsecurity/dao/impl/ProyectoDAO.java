@@ -82,18 +82,31 @@ public class ProyectoDAO extends AbstractDao<Integer, Proyecto>implements IProye
 		return proyectos;
 		
 	}
+	
+	@Override
+	public Proyecto findProyectoByProyectId(int proyectoId){
+	
+		
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("id", proyectoId));
+		Object uniqueResult = crit.uniqueResult();
+		return (Proyecto)uniqueResult;
+		
+	}
+	
+	
 	@Override
 	public List<Proyecto> findProyectosByEmpresaId(int idEmpresa) {
 
 		//TODO FIXME 
-//		Criteria crit = createEntityCriteria();
-//		Empresa empresa = new Empresa();
-//		empresa.setId(idEmpresa);
-//		
-//		crit.add(Restrictions.eq("empresa_id", idEmpresa));
-//		List list = (List<Proyecto>)crit.list();
+		Criteria crit = createEntityCriteria();
+		Empresa empresa = new Empresa();
+		empresa.setId(idEmpresa);
 		
-		return null;
+		crit.add(Restrictions.eq("empresa.id", idEmpresa));
+		List list = (List<Proyecto>)crit.list();
+		
+		return list;
 		
 	}
 

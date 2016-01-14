@@ -11,5 +11,6 @@ public interface IProyectosDAO {
 	public List<Proyecto> findAllProyectos();
 	public List<Proyecto> findProyectsByEmpleadoId(int id);
 	public List<Proyecto> findProyectosByEmpresaId(int idEmpresa);
+	public Proyecto findProyectoByProyectId(int proyectoId);
 	
 }
