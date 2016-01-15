@@ -2,6 +2,10 @@ package ar.com.mantenimiento.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +65,7 @@ public class Form implements Serializable {
 
 	//bi-directional many-to-one association to FormItem
 	@OneToMany(mappedBy="form")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private List<FormItem> formItems;
 
 	public Form() {

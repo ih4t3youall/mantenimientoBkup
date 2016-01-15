@@ -3,7 +3,7 @@ package ar.com.mantenimiento.entity;
 public class AsociacionEmpleadoProyecto {
 
 	private String nombreEmpleado;
-	private String nombreProyecto;
+	private int idProyecto;
 
 	public String getNombreEmpleado() {
 		return nombreEmpleado;
@@ -13,12 +13,12 @@ public class AsociacionEmpleadoProyecto {
 		this.nombreEmpleado = nombreEmpleado;
 	}
 
-	public String getNombreProyecto() {
-		return nombreProyecto;
+	public int getIdProyecto() {
+		return idProyecto;
 	}
 
-	public void setNombreProyecto(String nombreProyecto) {
-		this.nombreProyecto = nombreProyecto;
+	public void setIdProyecto(int idProyecto) {
+		this.idProyecto = idProyecto;
 	}
 
 }

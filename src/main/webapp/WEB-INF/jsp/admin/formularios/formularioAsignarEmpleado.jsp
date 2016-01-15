@@ -27,10 +27,10 @@
 		</form:select>
 
 		<label> al proyecto:</label>
-		<form:select class="form-control" path="nombreProyecto">
+		<form:select class="form-control" path="idProyecto">
 			<c:forEach items="${proyectos}" var="proyecto">
 
-				<form:option value="${proyecto.nombre} " />
+				<form:option value="${proyecto.id}" >${proyecto.nombre}</form:option>
 
 			</c:forEach>
 

@@ -34,6 +34,8 @@ public class Proyecto implements Serializable {
 	private String descripcion;
 
 	private String nombre;
+	
+	private String sso_id;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
@@ -104,6 +106,16 @@ public class Proyecto implements Serializable {
 
 	public void setMaquinas(List<Maquina> maquinas) {
 		this.maquinas = maquinas;
+	}
+
+
+	public String getSso_id() {
+		return sso_id;
+	}
+
+
+	public void setSso_id(String sso_id) {
+		this.sso_id = sso_id;
 	}
 	
 	

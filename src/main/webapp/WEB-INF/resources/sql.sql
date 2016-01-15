@@ -182,6 +182,7 @@ DROP TABLE IF EXISTS `mantenimiento`.`proyecto` ;
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`proyecto` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NULL COMMENT '',
+  `sso_id` VARCHAR(30) NULL COMMENT '',
   `descripcion` VARCHAR(1500) NULL COMMENT '',
   `empresa_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',

@@ -2,6 +2,8 @@ package ar.com.mantenimiento.springsecurity.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +15,13 @@ import ar.com.mantenimiento.entity.Empleado;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpleadoDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
+import ar.com.mantenimiento.springsecurity.dao.impl.UserDao;
+import ar.com.mantenimiento.springsecurity.model.User;
+import ar.com.mantenimiento.springsecurity.service.UserService;
 import ar.com.mantenimiento.utility.GsonUtility;
 
 @Controller
+@Transactional
 public class EmpleadoController {
 
 	@Autowired
@@ -23,6 +29,9 @@ public class EmpleadoController {
 	
 	@Autowired
 	private EmpleadoDAO empleadoDAO;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired 
 	private GsonUtility gsonUtility;
@@ -72,6 +81,16 @@ public class EmpleadoController {
 	public ModelAndView asignarEmpleado(AsociacionEmpleadoProyecto asociacion){
 		
 		ModelAndView mav = new ModelAndView("admin/exito/asociacionExitosa");
+		
+		User user = userService.findBySso(asociacion.getNombreEmpleado());
+		
+		Proyecto proyecto = proyectoDAO.findProyectoByProyectId(asociacion.getIdProyecto());
+		
+		proyecto.setSso_id(user.getSsoId());
+		
+		proyectoDAO.persist(proyecto);
+		
+		
 		
 		return mav;
 		

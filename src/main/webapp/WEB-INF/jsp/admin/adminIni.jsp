@@ -143,7 +143,7 @@
 
 	function formCrearCheckList() {
 
-		var idMaquina = $('#comboMaquina').val();
+		var idMaquina = $('#comboMaquinas').val();
 
 		var flag = true;
 
@@ -161,7 +161,7 @@
 
 				url : "getTemplateFormulario.htm",
 				type : "GET",
-				data : "idEmpresa="+empresa+"&idProyecto="+proyecto+"&idMaquina="+maquina,
+				data : "idMaquina="+idMaquina,
 				success : function(response) {
 					$('#contenedor').empty();
 					$('#contenedor').append(response);

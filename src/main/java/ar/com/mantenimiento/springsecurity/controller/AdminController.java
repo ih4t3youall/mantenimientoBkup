@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.com.mantenimiento.dto.EmpresaDTO;
-import ar.com.mantenimiento.dto.MaquinaDTO;
-import ar.com.mantenimiento.dto.ProyectoDTO;
 import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.entity.Form;
 import ar.com.mantenimiento.entity.FormItem;
 import ar.com.mantenimiento.entity.Maquina;
-import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpresaDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.FormDAO;
+import ar.com.mantenimiento.springsecurity.dao.impl.MaquinaDAO;
 import ar.com.mantenimiento.utility.GsonUtility;
 
 @Controller
@@ -34,6 +32,9 @@ public class AdminController {
 
 	@Autowired
 	private EmpresaDAO empresaDAO;
+	
+	@Autowired
+	private MaquinaDAO maquinaDAO;
 
 	@Autowired
 	private Mapper dozerMapper;
@@ -88,11 +89,14 @@ public class AdminController {
 
 	// arma el formulario donde se agregan los campos del checklist
 	@RequestMapping("admin/getTemplateFormulario.htm")
-	public @ResponseBody ModelAndView getTemplateFormulario(int idEmpresa, int idProyecto, int idMaquina) {
+	public @ResponseBody ModelAndView getTemplateFormulario(int idMaquina) {
 
 		ModelAndView mav = new ModelAndView("admin/formularios/getTemplateFormulario");
+		
+		Maquina maquina = maquinaDAO.getByKey(idMaquina);
 		Form form = new Form();
 		form.setMaquina(new Maquina());
+		mav.addObject("idMaquina",idMaquina);
 
 		return mav;
 
@@ -105,6 +109,19 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/exito/formularioCreadoConExtio");
 
 		List<FormItem> formItems = convertStringToList(camposFormulario);
+		
+		Form form =  new Form();
+		form.setFormItems(formItems);
+		Maquina maquina = maquinaDAO.getByKey(idMaquina);
+		
+		
+		for (FormItem formItem : formItems) {
+			formItem.setForm(form);
+		}
+		
+		form.setMaquina(maquina);
+		formDAO.persist(form);
+		
 		// magia de guardar esto y bla bla
 
 		return mav;
@@ -114,7 +131,7 @@ public class AdminController {
 	private List<FormItem> convertStringToList(String texto) {
 
 		List<FormItem> lista = new ArrayList<FormItem>();
-		StringTokenizer st = new StringTokenizer(texto, "");
+		StringTokenizer st = new StringTokenizer(texto, ",");
 		while (st.hasMoreTokens()) {
 			FormItem it = new FormItem();
 			it.setLabel(st.nextToken());
