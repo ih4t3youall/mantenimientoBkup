@@ -42,16 +42,6 @@
 
 
 
-<!-- owl -->
-<link rel="stylesheet"
-	href="<c:url value='/static/owl-carousel/owl-carousel/owl.carousel.css' />">
-<link rel="stylesheet"
-	href="<c:url value='/static/owl-carousel/owl-carousel/owl.theme.css'/>">
-
-
-<script
-	src="<c:url value='/static/owl-carousel/owl-carousel/owl.carousel.js'/>"></script>
-<!-- end owl -->
 <!-- tabla -->
 <script src="<c:url value='/static/jquery/jquery.dataTables.min.js'/>"></script>
 
@@ -120,20 +110,66 @@
 						});
 
 			});
+
+	
+	var idModal="";
+	function modalObservaciones(idSecreto) {
+	idModal = idSecreto;
+	$("#observaciones").val("");
+		$('#myModal').modal('show');
+
+	}
+
+	function cerrarModalObservaciones(nose) {
+		var observaciones = $("#observaciones").val();
+		$("#"+idModal).val(observaciones);
+		$('#myModal').modal('hide');
+
+	}
 </script>
 
 <style type="text/css">
-
 .borde {
-  border-top-style: solid;
-  border-right-style: solid;
-  border-bottom-style: solid;
-  border-left-style: solid;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
 }
 </style>
 
 </head>
 <body>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Ingrese la observacion</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<textarea class="form-control" rows="5" id="observaciones"></textarea>
+						<button class="btn btn-secondary" type="button"
+							onClick="cerrarModalObservaciones()">Aceptar</button>
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
@@ -151,7 +187,7 @@
 		<div class="col-md-2">
 			<p>aca va una fecha no se de que</p>
 			<p>R:24.00 -- este numero tampoco se que es</p>
-			
+
 		</div>
 		<div class="col-md-1"></div>
 	</div>
@@ -183,17 +219,17 @@
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	
-<!-- 	separador -->
+
+	<!-- 	separador -->
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-		<hr>
+			<hr>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	
-<!-- 	fin separador -->
+
+	<!-- 	fin separador -->
 
 
 	<div class="row">
@@ -226,12 +262,12 @@
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-		<hr>
+			<hr>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	
-<!-- 	fin separador -->
+
+	<!-- 	fin separador -->
 
 	<div class="row">
 
@@ -253,16 +289,16 @@
 
 
 	</div>
-<!-- 	separador -->
+	<!-- 	separador -->
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-		<hr>
+			<hr>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	
-<!-- 	fin separador -->
+
+	<!-- 	fin separador -->
 
 	<div class="row">
 
@@ -285,16 +321,16 @@
 
 	</div>
 
-<!-- 	separador -->
+	<!-- 	separador -->
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-		<hr>
+			<hr>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	
-<!-- 	fin separador -->
+
+	<!-- 	fin separador -->
 	<!-- aca arranca la tabla -->
 	<div class="row">
 		<div class="col-md-1"></div>
@@ -333,29 +369,30 @@
 
 
 					<c:forEach items="${form.formItems}" var="item">
-					
+
 						<tr role="row" class="odd">
-						<td class="sorting_1">${item.label}</td>
-						<td>
-						<select>
-						<option>si</option>
-						<option>no</option>
-						<option>N/C</option>
-						
-						</select>
-						
-						</td>
-						<td>
-						<select>
-						<option>B</option>
-						<option>M</option>
-						<option>N/C</option>
-						
-						</select>
-						
-						</td>
-						<td>texto</td>
-					</tr>
+							<td class="sorting_1">${item.label}</td>
+							<td><select>
+									<option>si</option>
+									<option>no</option>
+									<option>N/C</option>
+
+							</select></td>
+							<td><select>
+									<option>B</option>
+									<option>M</option>
+									<option>N/C</option>
+							</select>
+							
+							 <input type="text" style="display: none;"
+								id="${item.label}secret" value=""/>
+								
+								</td>
+							<td>
+							<button class="btn btn-secondary" type="button"
+									onClick="modalObservaciones('${item.label}secret')">Observaciones</button>
+									</td>
+						</tr>
 
 
 					</c:forEach>
@@ -376,106 +413,104 @@
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-		<hr>
+			<hr>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	
-<!-- 	fin separador -->
-	<div class="row">
-	
-	<div class="col-md-1"></div>
-	<div class="col-md-10">
-	<label>Observaciones: text input</label>
-	
-	</div>
-	
-	
-	<div class="col-md-1"></div>
-	
-	</div>
-	
-	<!-- 	separador -->
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-		<hr>
-		</div>
-		<div class="col-md-1"></div>
-	</div>
-	
-<!-- 	fin separador -->
-	<div class="row">
-	
-	<div class="col-md-1"></div>
-	
-	<div class="col-md-10">
-	
-	<label>NOTA : Cada vez que en la lista de verificacion se genere un NO, esto debe ser acompañado de su correspondiente NO CONFORMIDAD.</label>
-	</div>
-	
-	<div class="col-md-1"></div>
-	
-	</div>
-	<!-- 	separador -->
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-		<hr>
-		</div>
-		<div class="col-md-1"></div>
-	</div>
-	
-<!-- 	fin separador -->
-	
-	<div class="row">
-	<div class="col-md-1"></div>
-	
-	
-	<div class="col-md-4">
-	<label>CONCLUCION:</label>
-	
-	
-	</div>
-	<div class="col-md-4">
-	<label>APTO PARA SERVICIO </label>
-	
-	
-	</div>
-	
-	<div class="col-md-2">
-	
-	<select>
-	<option>
-	si
-	</option>
-	<option>
-	no
-	</option>
-	
-	</select>
-	
-	</div>
-	
-	
-	<div class="col-md-1"></div>
-	
-	
-	
-	</div>
-	<!-- 	separador -->
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-		<hr>
-		</div>
-		<div class="col-md-1"></div>
-	</div>
-	
-<!-- 	fin separador -->
-	
-	
 
+	<!-- 	fin separador -->
+	<div class="row">
+
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<label>Observaciones:  </label><textarea class="form-control" rows="5" id="observaciones2"></textarea>
+
+		</div>
+
+
+		<div class="col-md-1"></div>
+
+	</div>
+
+	<!-- 	separador -->
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<hr>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+
+	<!-- 	fin separador -->
+	<div class="row">
+
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10">
+
+			<label>NOTA : Cada vez que en la lista de verificacion se
+				genere un NO, esto debe ser acompañado de su correspondiente NO
+				CONFORMIDAD.</label>
+		</div>
+
+		<div class="col-md-1"></div>
+
+	</div>
+	<!-- 	separador -->
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<hr>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+
+	<!-- 	fin separador -->
+
+	<div class="row">
+		<div class="col-md-1"></div>
+
+
+		<div class="col-md-4">
+			<label>CONCLUCION:</label>
+
+
+		</div>
+		<div class="col-md-4">
+			<label>APTO PARA SERVICIO </label>
+
+
+		</div>
+
+		<div class="col-md-2">
+
+			<select>
+				<option>si</option>
+				<option>no</option>
+
+			</select>
+
+		</div>
+
+
+		<div class="col-md-1"></div>
+
+
+
+	</div>
+	<!-- 	separador -->
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<hr>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+
+	<!-- 	fin separador -->
+
+
+<a href="inicio.htm"><input type="button"  value="volver" /></a>
 
 </body>
 </html>

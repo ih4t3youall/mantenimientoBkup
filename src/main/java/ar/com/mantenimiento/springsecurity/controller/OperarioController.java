@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.com.mantenimiento.dto.MaquinaProyectoIdDTO;
 import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.impl.MaquinaDAO;
@@ -60,8 +61,11 @@ public class OperarioController {
 			maquinas.add(maquina);
 
 		}
+		
+		
 
 		ModelAndView mav = new ModelAndView("operario/proyectos");
+		mav.addObject("maquinaProyectoIdDTO",new MaquinaProyectoIdDTO());
 		mav.addObject("maquinas", maquinas);
 		mav.addObject("idProyecto",idProyecto);
 

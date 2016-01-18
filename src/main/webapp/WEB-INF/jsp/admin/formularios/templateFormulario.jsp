@@ -193,8 +193,6 @@
 		var idProyecto = $("#comboProyectos").val();
 		var nombreMaquina = $("#nombreMaquina").val();
 		var descripcionMaquina = $("#descripcionMaquina").val();
-		console.log(descripcionMaquina);
-		console.log("apa!");
 		$.ajax({
 
 			url : "insertarMaquinaModal.htm",

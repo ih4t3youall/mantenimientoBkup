@@ -275,6 +275,16 @@ li {
 							onClick="getForm('formCrearProyecto.htm')">Crear Proyecto</a></li>
 
 					</ul></li>
+					
+					
+					
+					<li><a class="desplegable" href="#" title="Alquiler">EPP</a>
+					<ul class="subnavegador">
+						<li role="presentation"><a
+							 href="#" title="Viviendas"
+							onClick="getForm('formAgregarEPP.htm')">Agregar EPP</a></li>
+
+					</ul></li>
 
 
 

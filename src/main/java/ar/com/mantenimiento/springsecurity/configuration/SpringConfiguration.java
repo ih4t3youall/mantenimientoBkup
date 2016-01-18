@@ -29,6 +29,16 @@ public class SpringConfiguration extends WebMvcConfigurerAdapter {
      * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
      *
      */
+	
+	
+//	@Bean
+//    public MultipartConfigElement multipartConfigElement() {
+//        MultipartConfigFactory factory = new MultipartConfigFactory();
+//        factory.setMaxFileSize("128KB");
+//        factory.setMaxRequestSize("128KB");
+//        return factory.createMultipartConfig();
+//    }
+	
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("/static/");
