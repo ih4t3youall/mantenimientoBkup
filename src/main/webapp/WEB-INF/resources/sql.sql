@@ -1,17 +1,6 @@
--- -----------------------------------------------------
--- Schema mantenimiento
--- -----------------------------------------------------
+drop schema mantenimiento;
 CREATE SCHEMA IF NOT EXISTS `mantenimiento` DEFAULT CHARACTER SET utf8 ;
 USE `mantenimiento` ;
-
-drop table form_item;
-drop table epp;
-drop table epp_obligatorio;
-drop table epp_opcional;
-drop table form;
-drop table maquina_has_proyecto;
-drop table maquina;
-
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -25,13 +14,64 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mantenimiento
 -- -----------------------------------------------------
 
+-- -----------------------------------------------------
+-- Schema mantenimiento
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mantenimiento` DEFAULT CHARACTER SET utf8 ;
+USE `mantenimiento` ;
+
+-- -----------------------------------------------------
+-- Table `mantenimiento`.`app_user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`app_user` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '',
+  `sso_id` VARCHAR(30) NOT NULL COMMENT '',
+  `password` VARCHAR(100) NOT NULL COMMENT '',
+  `first_name` VARCHAR(30) NOT NULL COMMENT '',
+  `last_name` VARCHAR(30) NOT NULL COMMENT '',
+  `email` VARCHAR(30) NOT NULL COMMENT '',
+  `state` VARCHAR(30) NOT NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '',
+  UNIQUE INDEX `sso_id` (`sso_id` ASC)  COMMENT '')
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mantenimiento`.`user_profile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`user_profile` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '',
+  `type` VARCHAR(30) NOT NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '',
+  UNIQUE INDEX `type` (`type` ASC)  COMMENT '')
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mantenimiento`.`app_user_user_profile`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`app_user_user_profile` (
+  `user_id` BIGINT(20) NOT NULL COMMENT '',
+  `user_profile_id` BIGINT(20) NOT NULL COMMENT '',
+  PRIMARY KEY (`user_id`, `user_profile_id`)  COMMENT '',
+  INDEX `FK_USER_PROFILE` (`user_profile_id` ASC)  COMMENT '',
+  CONSTRAINT `FK_APP_USER`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mantenimiento`.`app_user` (`id`),
+  CONSTRAINT `FK_USER_PROFILE`
+    FOREIGN KEY (`user_profile_id`)
+    REFERENCES `mantenimiento`.`user_profile` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`maquina`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`maquina` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`maquina` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NULL COMMENT '',
@@ -43,8 +83,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`form`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`form` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`form` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `equipo` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
@@ -73,8 +111,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`epp_obligatorio`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`epp_obligatorio` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`epp_obligatorio` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `form_id` INT(11) NOT NULL COMMENT '',
@@ -92,8 +128,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`epp_opcional`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`epp_opcional` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`epp_opcional` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `form_id` INT(11) NOT NULL COMMENT '',
@@ -111,8 +145,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`epp`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`epp` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`epp` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
@@ -140,8 +172,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`form_item`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`form_item` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`form_item` (
   `idform_item` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `form_id` INT(11) NOT NULL COMMENT '',
@@ -163,8 +193,6 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`empresa`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`empresa` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`empresa` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NULL COMMENT '',
@@ -177,12 +205,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`proyecto`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`proyecto` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`proyecto` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `nombre` VARCHAR(45) NULL COMMENT '',
-  `sso_id` VARCHAR(30) NULL COMMENT '',
   `descripcion` VARCHAR(1500) NULL COMMENT '',
   `empresa_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
@@ -198,8 +223,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mantenimiento`.`maquina_has_proyecto`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mantenimiento`.`maquina_has_proyecto` ;
-
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`maquina_has_proyecto` (
   `maquina_id` INT NOT NULL COMMENT '',
   `proyecto_id` INT NOT NULL COMMENT '',
@@ -219,9 +242,42 @@ CREATE TABLE IF NOT EXISTS `mantenimiento`.`maquina_has_proyecto` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `mantenimiento`.`usuario_asignado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`usuario_asignado` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `sso_id` VARCHAR(30) NULL COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mantenimiento`.`proyecto_has_usuario_asignado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`proyecto_has_usuario_asignado` (
+  `proyecto_id` INT NOT NULL COMMENT '',
+  `usuario_asignado_id` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`proyecto_id`, `usuario_asignado_id`)  COMMENT '',
+  INDEX `fk_proyecto_has_usuario_asignado_usuario_asignado1_idx` (`usuario_asignado_id` ASC)  COMMENT '',
+  INDEX `fk_proyecto_has_usuario_asignado_proyecto1_idx` (`proyecto_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_proyecto_has_usuario_asignado_proyecto1`
+    FOREIGN KEY (`proyecto_id`)
+    REFERENCES `mantenimiento`.`proyecto` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyecto_has_usuario_asignado_usuario_asignado1`
+    FOREIGN KEY (`usuario_asignado_id`)
+    REFERENCES `mantenimiento`.`usuario_asignado` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 /* Populate USER_PROFILE Table */
 /*INSERT INTO USER_PROFILE(type)
@@ -272,6 +328,5 @@ INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
   where user.sso_id='operario' and profile.type='OPERARIO';
  
   
- select * from APP_USER_USER_PROFILE inner join app_user on app_user.id = app_user_user_profile.USER_ID inner join user_profile on user_profile.id = app_user_user_profile.USER_PROFILE_ID; 
- select * from app_user_user_profile;
-  
+ --select * from APP_USER_USER_PROFILE inner join app_user on app_user.id = app_user_user_profile.USER_ID inner join user_profile on user_profile.id = app_user_user_profile.USER_PROFILE_ID; 
+ --select * from app_user_user_profile;

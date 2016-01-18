@@ -6,11 +6,40 @@
 <html>
 <head>
 <script type="text/javascript">
-	$(document).ready(function() {
-	
-		cambio();
 
+
+
+function getProyectosByEmpleado(){
+	
+	var nombreEmpleado = $('#nombreEmpleado').val();
+	
+	
+	$.ajax({
+		
+		url : "obtenerProyectosPorEmpleado.htm",
+		type : "GET",
+		data : "ssoid="+nombreEmpleado,
+		success: function(data){
+			var respuesta = $.parseJSON(data);
+			
+			$(respuesta).each(function(index,proyecto){
+				
+			$('#tags').append('<span class="tag label label-info">'+proyecto.nombre+'<span data-role="remove"></span></span>');
+				
+				
+			});
+			
+			
+		}
+		
 	});
+	
+	
+	
+	
+}
+
+
 </script>
 </head>
 <body>
@@ -20,11 +49,11 @@
 		class="bs-example bs-example-form" id="formAsignarEmpleado">
 
 		<label>Desasignar a: </label>
-		<form:select onchange="cambio()" class="form-control"
-			path="nombreEmpleado">
-
+		<form:select onchange="getProyectosByEmpleado()" id="nombreEmpleado"
+			class="form-control" path="nombreEmpleado">
+			<form:option value=""></form:option>
 			<c:forEach items="${empleados}" var="empleado">
-				<form:option value="${empleado.id}">${empleado.nombre}</form:option>
+				<form:option value="${empleado.ssoId}">${empleado.ssoId}</form:option>
 			</c:forEach>
 		</form:select>
 
@@ -32,10 +61,11 @@
 		<br />
 		<br />
 
-		<label id="labelProyectosA">Proyectos a los cuales esta asignado:</label>
-		<div id="contenedorAsignacion">
-		
-		
+		<label id="labelProyectosA">Proyectos a los cuales esta
+			asignado:</label>
+		<div id="contenedorAsignacion"></div>
+		<div class="bootstrap-tagsinput" id="tags">
+			
 		</div>
 
 		<br />

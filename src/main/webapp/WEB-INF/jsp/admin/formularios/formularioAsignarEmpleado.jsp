@@ -6,44 +6,118 @@
 <html>
 <head>
 
+<script type="text/javascript">
+
+
+function getProyectos(){
+	
+	var idEmpresa = $('#comboEmpresas').val();
+	$.ajax({
+		
+		
+		url : "ajaxProyectosEmpresa.htm",
+		type : "GET",
+		data : "idEmpresa="+idEmpresa,
+		success : function(response){
+			data = $.parseJSON(response);
+			$('#comboProyectos').empty();
+				$('#comboProyectos').append('<option value=""></option>');
+			$(data).each(function(index,item){
+				$('#comboProyectos').append("<option value='"+item.id +"'>"+item.nombre+"</option>");
+				
+				
+			});
+			
+		
+		
+	}
+		
+		
+	});
+	
+}
+
+
+function submitFormAsociar(){
+	
+	var nombreEmpleado = $('#nombreEmpleado').val().trim();
+	var idProyecto = $('#comboProyectos').val();
+	if(nombreEmpleado != "" && idProyecto != ""){
+	$('#formIdProyecto').val(idProyecto);
+	$('#formNombreEmpelado').val(nombreEmpleado);
+	
+	
+	$('#formAsignarEmpleado').submit();
+	}else{
+		
+		alert("debe completar los formularios");
+		
+	}
+	
+	
+}
+
+
+</script>
+
+
 </head>
 <body>
 
-	<form:form method="post" modelAttribute="asociacionEmpleadoProyecto"
-		action="asignarEmpleado.htm" data-example-id="simple-input-groups"
-		class="bs-example bs-example-form" id="formAsignarEmpleado">
+	
 
 		<label>Asignar a: </label>
-		<form:select class="form-control" path="nombreEmpleado">
-
+		<select class="form-control" id="nombreEmpleado">
+			<option value=""></option>
 			<c:forEach items="${empleados}" var="empleado">
 
-				<form:option value="${empleado.nombre} " />
+				<option value="${empleado.ssoId} ">${empleado.ssoId}</option>
 
 			</c:forEach>
 
 
 
-		</form:select>
+		</select>
 
-		<label> al proyecto:</label>
-		<form:select class="form-control" path="idProyecto">
-			<c:forEach items="${proyectos}" var="proyecto">
+		<label> Empresa:</label>
+		<select class="form-control" onchange="getProyectos()"
+			id="comboEmpresas">
+			<option value=""></option>
+			<c:forEach items="${empresas}" var="empresa">
 
-				<form:option value="${proyecto.id}" >${proyecto.nombre}</form:option>
+				<option value="${empresa.id}">${empresa.nombre}</option>
 
 			</c:forEach>
 
-		</form:select>
+		</select>
+
+
+		<label>Seleccione Proyecto</label>
+		<select class="form-control" id="comboProyectos">
+
+
+
+		</select>
+
+
+
 
 		<br />
 		<br />
 		<br />
 
-		<input type="button" onclick="submitForm('formAsignarEmpleado','')"
+		<input type="button" onclick="submitFormAsociar()"
 			value="Asociar" class="form-control" placeholder="Username"
 			aria-describedby="basic-addon1">
 
+
+
+<form:form method="post" modelAttribute="asociacionEmpleadoProyecto"
+		action="asignarEmpleado.htm" data-example-id="simple-input-groups"
+		class="bs-example bs-example-form" id="formAsignarEmpleado" style="display: none;">
+		<form:input path="idProyecto" id="formIdProyecto"/>
+		<form:input path="nombreEmpleado" id="formNombreEmpelado"/>
+		
 	</form:form>
 
 

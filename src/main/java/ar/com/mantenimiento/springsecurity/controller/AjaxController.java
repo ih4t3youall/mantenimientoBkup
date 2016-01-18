@@ -34,6 +34,7 @@ public class AjaxController {
 	@Autowired
 	private Mapper dozerMapper;
 
+	//solo para spring form
 	@RequestMapping("admin/ajaxProyectosEmpresa.htm")
 	public @ResponseBody String ajaxProyectosEmpresa(int idEmpresa) {
 
@@ -48,6 +49,7 @@ public class AjaxController {
 
 		}
 
+		
 		String respuesta = gsonUtility.getGson().toJson(proyectosDTO);
 		return respuesta;
 

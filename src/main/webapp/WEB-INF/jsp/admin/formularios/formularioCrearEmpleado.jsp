@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
@@ -14,61 +15,60 @@
 
 
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Nom</span>
-			<form:input path="nombre" type="text" aria-describedby="basic-addon1"
-				placeholder="Nombre" class="form-control" />
+			<span id="basic-addon1" class="input-group-addon">NomUs</span>
+			<form:input path="ssoId" type="text" aria-describedby="basic-addon1"
+				placeholder="Nombre usuario" class="form-control" />
 
 		</div>
 		<br>
 
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Ap</span>
-			<form:input path="apellido" type="text"
+			<span id="basic-addon1" class="input-group-addon">pas</span>
+			<form:input path="password" type="text"
 				aria-describedby="basic-addon1" placeholder="Apellido"
 				class="form-control" />
 
 		</div>
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">DNI</span>
-			<form:input path="dni" type="text" aria-describedby="basic-addon1"
-				placeholder="DNI" class="form-control" />
+			<span id="basic-addon1" class="input-group-addon">NP</span>
+			<form:input path="firstName" type="text"
+				aria-describedby="basic-addon1" placeholder="Nombre Persona"
+				class="form-control" />
 
 		</div>
 
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">NE</span>
-			<form:input path="numeroEmpleado" type="text"
-				aria-describedby="basic-addon1" placeholder="Numero de empleado"
+			<span id="basic-addon1" class="input-group-addon">Ap</span>
+			<form:input path="lastName" type="text"
+				aria-describedby="basic-addon1" placeholder="Apellido"
 				class="form-control" />
 
 		</div>
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Dir</span>
-			<form:input path="direccion" type="text"
-				aria-describedby="basic-addon1" placeholder="direccion"
-				class="form-control" />
-
-		</div>
-		<br>
-		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Tel</span>
-			<form:input path="telefono" type="text"
-				aria-describedby="basic-addon1" placeholder="Telefono (fijo)"
-				class="form-control" />
+			<span id="basic-addon1" class="input-group-addon">@</span>
+			<form:input path="email" type="text" aria-describedby="basic-addon1"
+				placeholder="email" class="form-control" />
 
 		</div>
 		<br>
 
-		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Cel</span>
-			<form:input path="celular" type="text"
-				aria-describedby="basic-addon1" placeholder="celular"
-				class="form-control" />
 
-		</div>
+		<form:select class="form-control" path="type">
+
+			<c:forEach items="${types}" var="type">
+
+				<form:option value="${type} ">${type}</form:option>
+
+			</c:forEach>
+
+
+
+		</form:select>
+
+
 
 		<br>
 

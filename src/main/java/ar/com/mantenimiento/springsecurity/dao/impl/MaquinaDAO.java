@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.com.mantenimiento.entity.Maquina;
+import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.AbstractDao;
 import ar.com.mantenimiento.springsecurity.dao.IMaquinaDAO;
 
 @Repository("maquinaDAO")
 public class MaquinaDAO extends AbstractDao<Integer, Maquina>implements IMaquinaDAO {
 
+	@Autowired 
+	private ProyectoDAO proyectoDAO ;
+	
 	@Override
 	public Maquina findMaquinaById(int idMaquina) {
 		
@@ -29,13 +34,12 @@ public class MaquinaDAO extends AbstractDao<Integer, Maquina>implements IMaquina
 	public List<Maquina> findMaquinasByProyecto(int idProyecto) {
 
 		
-		//FIXME
-//		getSession().createQuery("select *  from maquina_has_proyecto ");
-//		return (List<Maquina>) crit.list();
+
+		Proyecto proyecto = proyectoDAO.findProyectoByProyectId(idProyecto);
 		
 		
 		
-		return null;
+		return proyecto.getMaquinas();
 		
 	}
 }

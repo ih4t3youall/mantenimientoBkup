@@ -1,5 +1,6 @@
 package ar.com.mantenimiento.entity;
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
 
 
 /**
@@ -35,7 +37,7 @@ public class Empresa implements Serializable {
 
 	//bi-directional many-to-one association to Proyecto
 	@OneToMany(mappedBy="empresa")
-	 @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private List<Proyecto> proyectos;
 
 	public Empresa() {

@@ -61,13 +61,12 @@ public class MaquinaController {
 				maquina.setDescripcion(descripcion);
 				maquina.setNombre(nombre);
 				aux = maquina;
-				proyecto.add(maquina);
+				proyecto.addMaquina(maquina);
 				
 			}
 			
 			
 		}
-		
 		
 		
 		empresaDAO.persist(empresa);

@@ -14,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name="APP_USER")
 public class User {
@@ -44,8 +47,19 @@ public class User {
 	@JoinTable(name = "APP_USER_USER_PROFILE", 
              joinColumns = { @JoinColumn(name = "USER_ID") }, 
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
+	public void add(UserProfile userProfile){
+		if(userProfiles == null){
+		userProfiles = new HashSet<UserProfile>();
+		}
+		userProfiles.add(userProfile);
+		
+		
+		
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -9,7 +9,6 @@ import org.hibernate.annotations.CascadeType;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the form database table.
  * 

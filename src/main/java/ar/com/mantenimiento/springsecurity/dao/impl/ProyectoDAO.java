@@ -40,47 +40,10 @@ public class ProyectoDAO extends AbstractDao<Integer, Proyecto>implements IProye
 
 	@Override
 	public List<Proyecto> findAllProyectos() {
-		List<Proyecto> proyectos = new ArrayList<Proyecto>();
-
-		Proyecto proyecto = new Proyecto();
-
-		proyecto.setId(1);
-		proyecto.setNombre("ypf mantenimient");
-		proyecto.setDescripcion("ypf mantenimiento");
-
-		Proyecto proyecto1 = new Proyecto();
-
-		proyecto1.setId(2);
-		proyecto1.setNombre("techint mantenimiento");
-		proyecto1.setDescripcion("techint mantenimiento");
-
-		proyectos.add(proyecto);
-		proyectos.add(proyecto1);
-
+		
+		List<Proyecto> proyectos = getAll(Proyecto.class);
+	
 		return proyectos;
-	}
-	@Override
-	public List<Proyecto> findProyectsByEmpleadoId(int id) {
-		
-		List<Proyecto> proyectos = new ArrayList<Proyecto>();
-
-		Proyecto proyecto = new Proyecto();
-
-		proyecto.setId(1);
-		proyecto.setNombre("ypf mantenimient");
-		proyecto.setDescripcion("ypf mantenimiento");
-
-		Proyecto proyecto1 = new Proyecto();
-
-		proyecto1.setId(2);
-		proyecto1.setNombre("techint mantenimiento");
-		proyecto1.setDescripcion("techint mantenimiento");
-
-		proyectos.add(proyecto);
-		proyectos.add(proyecto1);
-		
-		return proyectos;
-		
 	}
 	
 	@Override
@@ -98,7 +61,6 @@ public class ProyectoDAO extends AbstractDao<Integer, Proyecto>implements IProye
 	@Override
 	public List<Proyecto> findProyectosByEmpresaId(int idEmpresa) {
 
-		//TODO FIXME 
 		Criteria crit = createEntityCriteria();
 		Empresa empresa = new Empresa();
 		empresa.setId(idEmpresa);

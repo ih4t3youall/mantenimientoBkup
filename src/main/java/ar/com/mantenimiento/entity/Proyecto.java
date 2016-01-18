@@ -17,57 +17,56 @@ import javax.persistence.NamedQuery;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-
 /**
  * The persistent class for the proyecto database table.
  * 
  */
 @Entity
-@NamedQuery(name="Proyecto.findAll", query="SELECT p FROM Proyecto p")
+@NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
 public class Proyecto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String descripcion;
 
 	private String nombre;
-	
-	private String sso_id;
 
-	//bi-directional many-to-one association to Empresa
+	// bi-directional many-to-many association to UsuarioAsignado
+	@ManyToMany(mappedBy = "proyectos")
+	private List<UsuarioAsignado> usuarioAsignados;
+
+	// bi-directional many-to-one association to UsuarioAsignado
+
+	// bi-directional many-to-many association to Maquina
+	@ManyToMany
+	@JoinTable(name = "maquina_has_proyecto", joinColumns = {
+			@JoinColumn(name = "proyecto_id") }, inverseJoinColumns = { @JoinColumn(name = "maquina_id") })
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE })
+	private List<Maquina> maquinas;
+
+	// bi-directional many-to-one association to Empresa
 	@ManyToOne
 	private Empresa empresa;
 
-	//bi-directional many-to-many association to Maquina
-	@ManyToMany
-	@JoinTable(
-		name="maquina_has_proyecto"
-		, joinColumns={
-			@JoinColumn(name="proyecto_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="maquina_id")
-			}
-		)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	private List<Maquina> maquinas;
-
+	
+	public void addMaquina(Maquina maquina){
+		
+		if(maquinas == null){
+			
+			maquinas = new ArrayList<Maquina>();
+			
+			
+		}
+		
+		maquinas.add(maquina);
+	}
+	
 	public Proyecto() {
 	}
 
-	
-	public void add(Maquina maquina){
-		if(maquinas == null){
-			maquinas = new ArrayList<Maquina>();
-			
-		}
-		maquinas.add(maquina);
-		
-	}
-	
 	public int getId() {
 		return this.id;
 	}
@@ -92,13 +91,14 @@ public class Proyecto implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Empresa getEmpresa() {
-		return this.empresa;
+	public List<UsuarioAsignado> getUsuarioAsignados() {
+		return this.usuarioAsignados;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setUsuarioAsignados(List<UsuarioAsignado> usuarioAsignados1) {
+		this.usuarioAsignados = usuarioAsignados1;
 	}
+
 
 	public List<Maquina> getMaquinas() {
 		return this.maquinas;
@@ -108,18 +108,12 @@ public class Proyecto implements Serializable {
 		this.maquinas = maquinas;
 	}
 
-
-	public String getSso_id() {
-		return sso_id;
+	public Empresa getEmpresa() {
+		return this.empresa;
 	}
 
-
-	public void setSso_id(String sso_id) {
-		this.sso_id = sso_id;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
-	
-	
-	
-	
 
 }
