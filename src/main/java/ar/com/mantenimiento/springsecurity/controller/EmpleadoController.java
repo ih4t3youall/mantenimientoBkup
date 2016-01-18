@@ -163,7 +163,7 @@ public class EmpleadoController {
 		ModelAndView mav = new ModelAndView("admin/formularios/formularioDesAsignarEmpleado");
 		
 		 
-		 List<Proyecto> proyectos = usuarioAsignadoDAO.finAssignamentsFromUser(ssoid);
+		 List<Proyecto> proyectos = usuarioAsignadoDAO.findAssignamentsFromUser(ssoid);
 		 
 		 List<ProyectoDTO> proyectosDTO = new ArrayList<ProyectoDTO>();
 		 

@@ -10,6 +10,8 @@ public interface IEmpresasDAO {
 	List<Empresa> findAllEmpresas();
 	
 	Empresa finEmpresaById(int nombre);
+
+	Empresa findEmpresaByProyectId(int idEmpresa);
 	
 	
 }

@@ -22,9 +22,11 @@ function getProyectosByEmpleado(){
 		success: function(data){
 			var respuesta = $.parseJSON(data);
 			
+			
+			$('#tags').empty();
 			$(respuesta).each(function(index,proyecto){
 				
-			$('#tags').append('<span class="tag label label-info">'+proyecto.nombre+'<span data-role="remove"></span></span>');
+			$('#tags').append('<span class="tag label label-info" onclick="verProyecto('+proyecto.id+')" ">'+proyecto.nombre+'<span data-role="remove"></span></span>');
 				
 				
 			});
@@ -35,6 +37,15 @@ function getProyectosByEmpleado(){
 	});
 	
 	
+	
+	
+}
+
+function verProyecto(idProyecto){
+	
+	//FIXME 
+	//tiene que mandar a una pantalla que muestre el proyecto, puede ser un modal
+	console.log(idProyecto);
 	
 	
 }

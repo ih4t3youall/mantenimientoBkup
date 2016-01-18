@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +20,7 @@ import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.springsecurity.dao.impl.MaquinaDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
+import ar.com.mantenimiento.springsecurity.dao.impl.UsuarioAsignadoDAO;
 import ar.com.mantenimiento.utility.GsonUtility;
 
 @Controller
@@ -30,6 +33,8 @@ public class AjaxController {
 	private MaquinaDAO maquinasDAO;
 	@Autowired
 	private GsonUtility gsonUtility;
+	@Autowired
+	private UsuarioAsignadoDAO usuarioAsignadoDAO;
 
 	@Autowired
 	private Mapper dozerMapper;
@@ -76,5 +81,8 @@ public class AjaxController {
 		return respuesta;
 
 	}
+	
+	
+	
 
 }

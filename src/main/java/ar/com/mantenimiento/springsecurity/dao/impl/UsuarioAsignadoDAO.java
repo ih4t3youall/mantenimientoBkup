@@ -17,11 +17,8 @@ import ar.com.mantenimiento.springsecurity.dao.IUsuarioAsignadoDAO;
 public class UsuarioAsignadoDAO extends AbstractDao<Integer, UsuarioAsignado>  implements IUsuarioAsignadoDAO{
 
 	
-	@Autowired 
-	private ProyectoDAO proyectoDAO;
-	
 	@Override
-	public List<Proyecto> finAssignamentsFromUser(String nombreEmpleado) {
+	public List<Proyecto> findAssignamentsFromUser(String nombreEmpleado) {
 		
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("ssoId", nombreEmpleado));

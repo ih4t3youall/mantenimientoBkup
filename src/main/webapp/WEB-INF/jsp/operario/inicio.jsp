@@ -87,13 +87,13 @@
 
 	}
 
-	function maquinas(nombreProyecto) {
+	function maquinas(idProyecto) {
+		
 		$.ajax({
 			url : "proyectos.htm",
 			type : 'GET',
-			data : "nombreProyecto=" + nombreProyecto,
+			data : "idProyecto=" + idProyecto,
 			success : function(response) {
-
 				$('#contenedorPrimario').hide();
 				$('#contenedorSecundario').show();
 				$('#contenedorSecundario').empty();
@@ -170,7 +170,7 @@
 			<div id="contenedorPrimario">
 				<c:forEach items="${proyectos}" var="proyecto">
 					<div class="panel panel-default"
-						onclick="maquinas('${proyecto.nombre}')">
+						onclick="maquinas('${proyecto.id}')">
 						<div class="panel-heading">
 							<h3 class="panel-title">${proyecto.nombre}</h3>
 						</div>

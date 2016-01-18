@@ -303,7 +303,7 @@ INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
 VALUES ('user','user', 'user','user','danny@xyz.com', 'Active');
  
 INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
-VALUES ('operario','abc125', 'Sam','Smith','samy@xyz.com', 'Active');
+VALUES ('operario','operario', 'Sam','Smith','samy@xyz.com', 'Active');
  
  
 /* Populate JOIN Table */

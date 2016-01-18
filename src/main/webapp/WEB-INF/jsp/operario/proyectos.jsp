@@ -35,6 +35,31 @@
 		});
 
 	});
+	
+	
+	function getCheckList(maquinaId,proyectoId){
+		
+		console.log(maquinaId);
+		console.log(proyectoId);
+		
+		
+		$("body").empty();	
+		$.ajax({
+			
+			url : "getCheckListById.htm",
+			type : "GET",
+			data : "maquinaId="+maquinaId+"&proyectoId="+proyectoId,
+			success:function(response){
+				
+				$("body").empty();
+				$("body").append(response);
+				
+			}
+			
+		});
+		
+		
+	}
 </script>
 
 </head>
@@ -48,7 +73,7 @@
 			<div class="item">
 
 
-				<div onclick="" class="panel panel-default">
+				<div onclick="getCheckList('${maquina.id}','${idProyecto}')" class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">${maquina.nombre}</h3>
 					</div>
