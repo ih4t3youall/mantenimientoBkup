@@ -72,7 +72,6 @@ $(document).ready(
 
 	function submit(id) {
 		
-		console.log(id);
 		$('#id').val(id);
 		$('#form').submit();
 

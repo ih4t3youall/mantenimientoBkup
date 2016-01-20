@@ -19,7 +19,8 @@ public class FormDAO extends AbstractDao<Integer, Form>implements IFormDAO  {
 		
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("maquina.id", maquinaId));
-		 return (Form) crit.uniqueResult();
+		 Form form = (Form) crit.uniqueResult();
+		 return form;
 		
 		
 	}

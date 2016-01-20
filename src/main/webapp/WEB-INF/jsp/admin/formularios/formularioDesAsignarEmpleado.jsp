@@ -45,7 +45,6 @@ function verProyecto(idProyecto){
 	
 	//FIXME 
 	//tiene que mandar a una pantalla que muestre el proyecto, puede ser un modal
-	console.log(idProyecto);
 	
 	
 }

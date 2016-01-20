@@ -64,6 +64,71 @@
 
 			});
 
+	
+	function editarFormularioSubmit() {
+
+		var items = [];
+
+
+		$(".campoTexto").each(function(index,data){
+
+		  
+		  
+		  var item =  new Object();
+		  item.label= $(data).val().trim();
+		  item.idformItem=$(data).attr("id").trim();
+		  if(item.label != ""){
+		  items.push(item);
+		  }
+		  
+
+		});
+		
+		 var toServer = JSON.stringify(items);
+		
+		$.ajax({
+			
+			url : "submitFormEditarFormulario.htm",
+			type :"GET",
+			data : "formItems="+toServer+"&maquinaId="+$("#maquinaId").html().trim(),
+			success:function(response){
+				
+				
+				$('#contenedor').empty();
+				$('#contenedor').append(response);
+			}
+			
+			
+		});
+
+
+		
+	}
+	
+	
+	function editarCheckList(){
+		var idMaquina = $('#comboMaquinas').val();
+		$.ajax({
+			
+			url : "formEditarFormulario.htm",
+			type : "GET",
+			data : "idMaquina="+idMaquina,
+			success:function(data){
+				
+				$('#contenedor').empty();
+				$('#contenedor').append(data);
+				
+			}
+		
+			
+			
+		});
+		
+		
+		
+	}
+	
+	
 	function cambio() {
 
 		var id = $('#nombreEmpleado').val();
@@ -114,7 +179,6 @@
 
 		if (validado) {
 			$("#" + form).submit();
-			console.log("pase el submit");
 
 		} else {
 
@@ -150,7 +214,6 @@
 		$(".check").each(function(index, item) {
 
 			if ($(item).val() == "") {
-				console.log($(item).val());
 				flag = false;
 			}
 		});
@@ -247,6 +310,9 @@ li {
 							onClick="formAsignarEmpleado()">Crear Formularios</a></li>
 						<li role="presentation"><a href="#" title="Viviendas"
 							onClick="getForm('templateFormulario.htm')">Crear check list
+						</a></li>
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="getForm('editarFormulario.htm')">Editar formulario
 						</a></li>
 
 					</ul></li>

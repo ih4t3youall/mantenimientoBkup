@@ -41,8 +41,6 @@
 	
 	function getCheckList(maquinaId,proyectoId){
 		
-		console.log(maquinaId);
-		console.log(proyectoId);
 		
 		
 		

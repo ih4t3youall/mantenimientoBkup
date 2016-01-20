@@ -45,8 +45,7 @@ $(document).ready(
 							    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
 							    weekStart: 0,
 							    onClose:function(){
-							    	console.log("asdasda");
-							    	alert('asdasd');
+							    	
 							    }
 							};
 						

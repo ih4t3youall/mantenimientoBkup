@@ -1,13 +1,23 @@
 package ar.com.mantenimiento.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * The persistent class for the form database table.
@@ -67,6 +77,9 @@ public class Form implements Serializable {
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	private List<FormItem> formItems;
 
+	
+	
+	
 	public Form() {
 	}
 

@@ -22,7 +22,6 @@
 	}
 
 	function doSubmit() {
-		console.log("pase");
 
 		var enviar = [];
 		$(".customInput").each(function(index, item) {
@@ -54,7 +53,6 @@
 				error : function(error) {
 
 					alert("Ocurrio un error");
-					console.log(error);
 				}
 
 			});

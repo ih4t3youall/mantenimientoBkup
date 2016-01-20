@@ -178,6 +178,10 @@
 
 		if ($("#comboMaquinas").val() != "") {
 			$("#boton").prop('disabled', false);
+
+			
+			
+			
 		} else {
 			$("#boton").prop('disabled', true);
 		}
@@ -292,8 +296,8 @@
 	</div>
 
 
-	<input type="button" id="boton" onclick="formCrearCheckList()"
-		value="Crear Template" class="form-control"
+	<input type="button" id="boton" onclick="editarCheckList()"
+		value="Editar formulario" class="form-control"
 		aria-describedby="basic-addon1">
 
 
