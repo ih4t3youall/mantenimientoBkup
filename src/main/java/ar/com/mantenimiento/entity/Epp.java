@@ -2,6 +2,7 @@ package ar.com.mantenimiento.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -15,7 +16,7 @@ public class Epp implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int idEpp;
 
 	private String descripcion;
 
@@ -23,26 +24,26 @@ public class Epp implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-one association to EppObligatorio
-	@ManyToOne
-	@JoinColumn(name="epp_obligatorio_id")
-	private EppObligatorio eppObligatorio;
-
-	//bi-directional many-to-one association to EppOpcional
-	@ManyToOne
-	@JoinColumn(name="epp_opcional_id")
-	private EppOpcional eppOpcional;
+	//bi-directional many-to-one association to FormHasEpp
+	@OneToMany(mappedBy="epp")
+	private List<FormHasEpp> formHasEpps;
 
 	public Epp() {
 	}
 
-	public int getId() {
-		return this.id;
+	
+
+	public int getIdEpp() {
+		return idEpp;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+
+	public void setIdEpp(int idEpp) {
+		this.idEpp = idEpp;
 	}
+
+
 
 	public String getDescripcion() {
 		return this.descripcion;
@@ -68,20 +69,26 @@ public class Epp implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public EppObligatorio getEppObligatorio() {
-		return this.eppObligatorio;
+	public List<FormHasEpp> getFormHasEpps() {
+		return this.formHasEpps;
 	}
 
-	public void setEppObligatorio(EppObligatorio eppObligatorio) {
-		this.eppObligatorio = eppObligatorio;
+	public void setFormHasEpps(List<FormHasEpp> formHasEpps) {
+		this.formHasEpps = formHasEpps;
 	}
 
-	public EppOpcional getEppOpcional() {
-		return this.eppOpcional;
+	public FormHasEpp addFormHasEpp(FormHasEpp formHasEpp) {
+		getFormHasEpps().add(formHasEpp);
+		formHasEpp.setEpp(this);
+
+		return formHasEpp;
 	}
 
-	public void setEppOpcional(EppOpcional eppOpcional) {
-		this.eppOpcional = eppOpcional;
+	public FormHasEpp removeFormHasEpp(FormHasEpp formHasEpp) {
+		getFormHasEpps().remove(formHasEpp);
+		formHasEpp.setEpp(null);
+
+		return formHasEpp;
 	}
 
 }

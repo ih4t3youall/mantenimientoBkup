@@ -38,9 +38,8 @@ public class UsuarioAsignado implements Serializable {
 			@JoinColumn(name="proyecto_id")
 			}
 		)
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE })
 	private List<Proyecto> proyectos;
-
 
 	public UsuarioAsignado() {
 	}
@@ -71,12 +70,9 @@ public class UsuarioAsignado implements Serializable {
 
 	public void addProyecto(Proyecto proyecto) {
 		if(proyectos == null){
-			
 			proyectos = new ArrayList<Proyecto>();
 		}
 		proyectos.add(proyecto);
-		
 	}
 
-	
 }

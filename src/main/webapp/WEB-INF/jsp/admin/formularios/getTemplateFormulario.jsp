@@ -10,7 +10,22 @@
 <script type="text/javascript">
 	//FIXME
 	$(document).ready(function() {
-		// 		$("#boton").prop('disabled', true);
+		
+		$("#closeModal").click(function(){
+			
+			$(".select").each(function(index,item){
+				
+				
+				console.log(item);
+				
+				
+			});
+			
+			
+			
+			
+		});
+		
 	});
 
 	function agregarCampo() {
@@ -45,9 +60,8 @@
 				type : "GET",
 				data : "camposFormulario=" + enviar + "&idMaquina=" + maquina,
 				success : function(response) {
-					
+
 					getForm('templateFormulario.htm');
-					
 
 				},
 				error : function(error) {
@@ -60,9 +74,52 @@
 		}
 
 	}
+	
+	function asignarEPP(){
+		
+	}
+
+	function modalEPP() {
+
+		$.ajax({
+
+			url : "eppModal.htm",
+			type : "GET",
+			success : function(data) {
+
+				$('#modalEPP').modal('show');
+				$(".modal-EPP-body").empty();
+				$(".modal-EPP-body").append(data);
+			}
+
+		});
+
+	}
 </script>
 </head>
 <body>
+
+
+	<!-- Modal  EPP-->
+	<div class="modal fade" id="modalEPP" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-EPP-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-EPP-title"></h4>
+				</div>
+				<div class="modal-EPP-body"></div>
+				<div class="modal-EPP-footer">
+				<br/>
+				<hr>
+					<button type="button" class="btn btn-default" id="closeModal" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 
 
 	<h3>Crear nuevo checklist</h3>
@@ -79,6 +136,12 @@
 		class="btn btn-default btn-sm">
 		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> +
 	</button>
+	
+	<button type="button" onclick="modalEPP()"
+		class="btn btn-default btn-sm">
+		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> agregar EPP
+	</button>
+
 
 	<input type="button" id="boton" onclick="doSubmit()"
 		value="Crear Template" class="form-control"

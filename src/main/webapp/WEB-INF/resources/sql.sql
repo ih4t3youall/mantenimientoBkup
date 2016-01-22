@@ -90,11 +90,8 @@ CREATE TABLE IF NOT EXISTS `mantenimiento`.`form` (
   `fecha_programada` DATE NULL DEFAULT NULL COMMENT '',
   `nro_interno` INT(11) NULL DEFAULT NULL COMMENT '',
   `nro_orden` INT(11) NULL DEFAULT NULL COMMENT '',
-  `epp_obligatorio` INT(11) NULL DEFAULT NULL COMMENT '',
-  `epp_opcional` INT(11) NULL DEFAULT NULL COMMENT '',
   `conclusion` VARCHAR(10) NULL DEFAULT NULL COMMENT '',
   `observaciones` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
-  `formcol` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
   `maquina_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   INDEX `fk_form_maquina1_idx` (`maquina_id` ASC)  COMMENT '',
@@ -126,23 +123,6 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mantenimiento`.`epp_opcional`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mantenimiento`.`epp_opcional` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `form_id` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '',
-  INDEX `fk_epp_opcional_form1_idx` (`form_id` ASC)  COMMENT '',
-  CONSTRAINT `fk_epp_opcional_form1`
-    FOREIGN KEY (`form_id`)
-    REFERENCES `mantenimiento`.`form` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `mantenimiento`.`epp`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mantenimiento`.`epp` (
@@ -154,15 +134,9 @@ CREATE TABLE IF NOT EXISTS `mantenimiento`.`epp` (
   `epp_opcional_id` INT(11) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   INDEX `fk_epp_epp_obligatorio1_idx` (`epp_obligatorio_id` ASC)  COMMENT '',
-  INDEX `fk_epp_epp_opcional1_idx` (`epp_opcional_id` ASC)  COMMENT '',
   CONSTRAINT `fk_epp_epp_obligatorio1`
     FOREIGN KEY (`epp_obligatorio_id`)
     REFERENCES `mantenimiento`.`epp_obligatorio` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_epp_epp_opcional1`
-    FOREIGN KEY (`epp_opcional_id`)
-    REFERENCES `mantenimiento`.`epp_opcional` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -274,10 +248,33 @@ CREATE TABLE IF NOT EXISTS `mantenimiento`.`proyecto_has_usuario_asignado` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `mantenimiento`.`form_has_epp`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mantenimiento`.`form_has_epp` (
+  `form_id` INT(11) NOT NULL COMMENT '',
+  `epp_id` INT(11) NOT NULL COMMENT '',
+  `obligatorio` TINYINT(1) NULL COMMENT '',
+  PRIMARY KEY (`form_id`, `epp_id`)  COMMENT '',
+  INDEX `fk_form_has_epp_epp1_idx` (`epp_id` ASC)  COMMENT '',
+  INDEX `fk_form_has_epp_form1_idx` (`form_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_form_has_epp_form1`
+    FOREIGN KEY (`form_id`)
+    REFERENCES `mantenimiento`.`form` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_form_has_epp_epp1`
+    FOREIGN KEY (`epp_id`)
+    REFERENCES `mantenimiento`.`epp` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 
 /* Populate USER_PROFILE Table */
 /*INSERT INTO USER_PROFILE(type)

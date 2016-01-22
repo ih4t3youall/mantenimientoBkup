@@ -1,23 +1,14 @@
 package ar.com.mantenimiento.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+import java.util.Date;
+import java.util.List;
+
 
 /**
  * The persistent class for the form database table.
@@ -30,15 +21,9 @@ public class Form implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int idForm;
 
 	private String conclusion;
-
-	@Column(name="epp_obligatorio")
-	private int eppObligatorio;
-
-	@Column(name="epp_opcional")
-	private int eppOpcional;
 
 	private String equipo;
 
@@ -50,8 +35,6 @@ public class Form implements Serializable {
 	@Column(name="fecha_realizacion")
 	private Date fechaRealizacion;
 
-	private String formcol;
-
 	@Column(name="nro_interno")
 	private int nroInterno;
 
@@ -60,35 +43,28 @@ public class Form implements Serializable {
 
 	private String observaciones;
 
-	//bi-directional many-to-one association to EppObligatorio
-	@OneToMany(mappedBy="form")
-	private List<EppObligatorio> eppObligatorios;
-
-	//bi-directional many-to-one association to EppOpcional
-	@OneToMany(mappedBy="form")
-	private List<EppOpcional> eppOpcionals;
-
 	//bi-directional many-to-one association to Maquina
 	@ManyToOne
 	private Maquina maquina;
 
+	//bi-directional many-to-one association to FormHasEpp
+	@OneToMany(mappedBy="form")
+	private List<FormHasEpp> formHasEpps;
+
 	//bi-directional many-to-one association to FormItem
 	@OneToMany(mappedBy="form")
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE })
 	private List<FormItem> formItems;
 
-	
-	
-	
 	public Form() {
 	}
 
 	public int getId() {
-		return this.id;
+		return this.idForm;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idForm = id;
 	}
 
 	public String getConclusion() {
@@ -97,22 +73,6 @@ public class Form implements Serializable {
 
 	public void setConclusion(String conclusion) {
 		this.conclusion = conclusion;
-	}
-
-	public int getEppObligatorio() {
-		return this.eppObligatorio;
-	}
-
-	public void setEppObligatorio(int eppObligatorio) {
-		this.eppObligatorio = eppObligatorio;
-	}
-
-	public int getEppOpcional() {
-		return this.eppOpcional;
-	}
-
-	public void setEppOpcional(int eppOpcional) {
-		this.eppOpcional = eppOpcional;
 	}
 
 	public String getEquipo() {
@@ -139,14 +99,6 @@ public class Form implements Serializable {
 		this.fechaRealizacion = fechaRealizacion;
 	}
 
-	public String getFormcol() {
-		return this.formcol;
-	}
-
-	public void setFormcol(String formcol) {
-		this.formcol = formcol;
-	}
-
 	public int getNroInterno() {
 		return this.nroInterno;
 	}
@@ -171,56 +123,34 @@ public class Form implements Serializable {
 		this.observaciones = observaciones;
 	}
 
-	public List<EppObligatorio> getEppObligatorios() {
-		return this.eppObligatorios;
-	}
-
-	public void setEppObligatorios(List<EppObligatorio> eppObligatorios) {
-		this.eppObligatorios = eppObligatorios;
-	}
-
-	public EppObligatorio addEppObligatorio(EppObligatorio eppObligatorio) {
-		getEppObligatorios().add(eppObligatorio);
-		eppObligatorio.setForm(this);
-
-		return eppObligatorio;
-	}
-
-	public EppObligatorio removeEppObligatorio(EppObligatorio eppObligatorio) {
-		getEppObligatorios().remove(eppObligatorio);
-		eppObligatorio.setForm(null);
-
-		return eppObligatorio;
-	}
-
-	public List<EppOpcional> getEppOpcionals() {
-		return this.eppOpcionals;
-	}
-
-	public void setEppOpcionals(List<EppOpcional> eppOpcionals) {
-		this.eppOpcionals = eppOpcionals;
-	}
-
-	public EppOpcional addEppOpcional(EppOpcional eppOpcional) {
-		getEppOpcionals().add(eppOpcional);
-		eppOpcional.setForm(this);
-
-		return eppOpcional;
-	}
-
-	public EppOpcional removeEppOpcional(EppOpcional eppOpcional) {
-		getEppOpcionals().remove(eppOpcional);
-		eppOpcional.setForm(null);
-
-		return eppOpcional;
-	}
-
 	public Maquina getMaquina() {
 		return this.maquina;
 	}
 
 	public void setMaquina(Maquina maquina) {
 		this.maquina = maquina;
+	}
+
+	public List<FormHasEpp> getFormHasEpps() {
+		return this.formHasEpps;
+	}
+
+	public void setFormHasEpps(List<FormHasEpp> formHasEpps) {
+		this.formHasEpps = formHasEpps;
+	}
+
+	public FormHasEpp addFormHasEpp(FormHasEpp formHasEpp) {
+		getFormHasEpps().add(formHasEpp);
+		formHasEpp.setForm(this);
+
+		return formHasEpp;
+	}
+
+	public FormHasEpp removeFormHasEpp(FormHasEpp formHasEpp) {
+		getFormHasEpps().remove(formHasEpp);
+		formHasEpp.setForm(null);
+
+		return formHasEpp;
 	}
 
 	public List<FormItem> getFormItems() {

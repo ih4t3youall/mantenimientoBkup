@@ -15,20 +15,14 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import ar.com.mantenimiento.entity.EppObligatorio;
-import ar.com.mantenimiento.entity.EppOpcional;
+import ar.com.mantenimiento.entity.FormHasEpp;
 import ar.com.mantenimiento.entity.FormItem;
 import ar.com.mantenimiento.entity.Maquina;
 
 public class FormDTO {
-
 	private int id;
 
 	private String conclusion;
-
-	private int eppObligatorio;
-
-	private int eppOpcional;
 
 	private String equipo;
 
@@ -36,21 +30,17 @@ public class FormDTO {
 
 	private Date fechaRealizacion;
 
-	private String formcol;
-
 	private int nroInterno;
 
 	private int nroOrden;
 
 	private String observaciones;
 
-	private List<EppObligatorio> eppObligatorios;
-
-	private List<EppOpcional> eppOpcionals;
-
 	private Maquina maquina;
 
 	private List<FormItem> formItems;
+
+	private List<FormHasEpp> formHasEpps;
 
 	public int getId() {
 		return id;
@@ -66,22 +56,6 @@ public class FormDTO {
 
 	public void setConclusion(String conclusion) {
 		this.conclusion = conclusion;
-	}
-
-	public int getEppObligatorio() {
-		return eppObligatorio;
-	}
-
-	public void setEppObligatorio(int eppObligatorio) {
-		this.eppObligatorio = eppObligatorio;
-	}
-
-	public int getEppOpcional() {
-		return eppOpcional;
-	}
-
-	public void setEppOpcional(int eppOpcional) {
-		this.eppOpcional = eppOpcional;
 	}
 
 	public String getEquipo() {
@@ -108,14 +82,6 @@ public class FormDTO {
 		this.fechaRealizacion = fechaRealizacion;
 	}
 
-	public String getFormcol() {
-		return formcol;
-	}
-
-	public void setFormcol(String formcol) {
-		this.formcol = formcol;
-	}
-
 	public int getNroInterno() {
 		return nroInterno;
 	}
@@ -140,22 +106,6 @@ public class FormDTO {
 		this.observaciones = observaciones;
 	}
 
-	public List<EppObligatorio> getEppObligatorios() {
-		return eppObligatorios;
-	}
-
-	public void setEppObligatorios(List<EppObligatorio> eppObligatorios) {
-		this.eppObligatorios = eppObligatorios;
-	}
-
-	public List<EppOpcional> getEppOpcionals() {
-		return eppOpcionals;
-	}
-
-	public void setEppOpcionals(List<EppOpcional> eppOpcionals) {
-		this.eppOpcionals = eppOpcionals;
-	}
-
 	public Maquina getMaquina() {
 		return maquina;
 	}
@@ -170,6 +120,14 @@ public class FormDTO {
 
 	public void setFormItems(List<FormItem> formItems) {
 		this.formItems = formItems;
+	}
+
+	public List<FormHasEpp> getFormHasEpps() {
+		return formHasEpps;
+	}
+
+	public void setFormHasEpps(List<FormHasEpp> formHasEpps) {
+		this.formHasEpps = formHasEpps;
 	}
 
 }

@@ -13,6 +13,7 @@
 
 
 
+
 <script src="<c:url value='/static/jquery/jquery-1.11.3.min.js' />"></script>
 
 <!-- Latest compiled and minified CSS -->
@@ -28,7 +29,15 @@
 <script
 	src="<c:url value='/static/bootstrap-3.3.6-dist/js/bootstrap.min.js' />"></script>
 
+<!-- kitten -->
 
+
+<link rel="stylesheet"
+	href="<c:url value='/static/image-picker/image-picker/image-picker.css' />">
+<script
+	src="<c:url value='/static/image-picker/image-picker/image-picker.js' />"></script>
+
+<!-- fin kitten -->
 
 <!-- owl -->
 <link rel="stylesheet"
@@ -344,13 +353,22 @@ li {
 					
 					
 					
-					<li><a class="desplegable" href="#" title="Alquiler">EPP</a>
+<!-- 					<li><a class="desplegable" href="#" title="Alquiler">EPP</a> -->
+<!-- 					<ul class="subnavegador"> -->
+<!-- 						<li role="presentation"><a -->
+<!-- 							 href="#" title="Viviendas" -->
+<!-- 							onClick="getForm('formAgregarEPP.htm')" -->
+<!-- 							>Agregar EPP</a></li> -->
+
+<!-- 					</ul></li> -->
+	<li><a class="desplegable" href="#" title="Alquiler">EPP</a>
 					<ul class="subnavegador">
 						<li role="presentation"><a
 							 href="#" title="Viviendas"
-							onClick="getForm('formAgregarEPP.htm')">Agregar EPP</a></li>
+							onClick="getForm('formAgregarEPP.htm')">Agregar epp</a></li>
 
 					</ul></li>
+					
 
 
 
