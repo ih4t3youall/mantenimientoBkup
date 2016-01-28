@@ -1,7 +1,18 @@
 package ar.com.mantenimiento.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -30,6 +41,9 @@ public class FormItem implements Serializable {
 	//bi-directional many-to-one association to Form
 	@ManyToOne
 	private Form form;
+
+	
+
 
 	public FormItem() {
 	}

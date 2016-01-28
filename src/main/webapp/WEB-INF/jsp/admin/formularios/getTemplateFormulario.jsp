@@ -3,34 +3,91 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<script
+	src="<c:url value='/static/bootstrap-3.3.6-dist/js/bootstrap-datepicker.js'/>"></script>
+
+
+<link rel="stylesheet"
+	href="<c:url value='/static/bootstrap-3.3.6-dist/css/bootstrap-datepicker.css' />">
+
 <html>
 <head>
 
 
 <script type="text/javascript">
 	//FIXME
-	$(document).ready(function() {
-		
-		$("#closeModal").click(function(){
-			
-			$(".select").each(function(index,item){
-				
-				
-				console.log(item);
-				
-				
-			});
-			
-			
-			
-			
-		});
-		
-	});
+	
+	
+	
+		$(document).ready(
+					function() { // Script del Navegador
+					//porque como hay integers me pisa el placeholder con un cero y en el placeholder esta el valor de cada campo
+						
+						$.fn.datepicker.dates['es'] = {
+							    days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+							    daysShort: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vier", "sab"],
+							    daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+							    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+							    monthsShort: ["En", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dic"],
+							    today: "Hoy",
+							    clear: "Clear",
+							    format: "dd/mm/yyyy",
+							    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+							    weekStart: 0,
+							    onClose:function(){
+							    	
+							    }
+							};
+						
+						$('.fecha').datepicker({
+						    language: 'es',
+						
+						});
+						
+						
+						$('.fecha').change(function() {
+							
+							$('.datepicker').hide();
+							
+						});
+						
+					});
+	
+	
+	
+	$(document)
+			.ready(
+					function() {
+
+						$("#closeModal")
+								.click(
+										function() {
+
+											//$("option")
+											var seleccion = [];
+											$('#multiple :selected').each(	function(i, selected) {
+												seleccion[i] = $(selected)	.val();
+													});
+
+											$(seleccion).each(function(index,item) {
+
+																if ($("#check").is(':checked')) {
+																	$("#contenedor").append("<input style='display: none;' class='eppOpcional' value='"+item+"'>");
+																} else {
+																	$("#contenedor").append("<input style='display: none;' class='eppObligatorio' value='"+item+"'>");
+
+																}
+
+															});
+
+										});
+
+					});
 
 	function agregarCampo() {
 
-		var campo = '<div class="form-group"> 		<label for="usr">Ingrese Nombre Input checkbox:</label> <input type="text" class="form-control customInput"	id="usr">	</div>';
+		var campo = '<div class="form-group"> 		<label for="usr">Ingrese Nombre Input checkbox:</label> <input type="text" class="form-control customInput textos"	id="0">	</div>';
 
 		$('#campos').append(campo);
 
@@ -39,26 +96,52 @@
 	function doSubmit() {
 
 		var enviar = [];
-		$(".customInput").each(function(index, item) {
+		$(".textos").each(function(index, item) {
+			var aux = new Object();
+			aux.label = $(item).val();
 
-			var aux;
-			aux = $(item).val();
+			aux.idformItem = $(item).attr("id");
 
 			if (aux != "") {
 				enviar.push(aux);
 			}
-
 		});
+
+
 
 		if (enviar.length > 0) {
 
 			var maquina = $("#idMaquina").html();
 
+			var eppOpcional = [];
+			var eppObligatorio = [];
+
+			$(".eppOpcional").each(function(index, item) {
+
+				eppOpcional.push($(item).val());
+
+			});
+			$(".eppObligatorio").each(function(index, item) {
+
+				eppObligatorio.push($(item).val());
+
+			});
+		  
+
+			var fechaProgramada = $("#fechaProgramada").val();
+		  
+		var send = JSON.stringify(enviar);
+		 
+		  
+		  
 			$.ajax({
 
 				url : "submitTemplateFormulario.htm",
 				type : "GET",
-				data : "camposFormulario=" + enviar + "&idMaquina=" + maquina,
+				data : "camposFormulario=" + send + "&idMaquina=" + maquina
+						+ "&eppOpcional=" + eppOpcional + "&eppObligatorio="
+						+ eppObligatorio + "&fechaProgramada="
+						+ fechaProgramada,
 				success : function(response) {
 
 					getForm('templateFormulario.htm');
@@ -74,9 +157,9 @@
 		}
 
 	}
-	
-	function asignarEPP(){
-		
+
+	function asignarEPP() {
+
 	}
 
 	function modalEPP() {
@@ -112,9 +195,10 @@
 				</div>
 				<div class="modal-EPP-body"></div>
 				<div class="modal-EPP-footer">
-				<br/>
-				<hr>
-					<button type="button" class="btn btn-default" id="closeModal" data-dismiss="modal">Close</button>
+					<br />
+					<hr>
+					<button type="button" class="btn btn-default" id="closeModal"
+						data-dismiss="modal">Close</button>
 				</div>
 			</div>
 
@@ -124,10 +208,18 @@
 
 	<h3>Crear nuevo checklist</h3>
 	<label id="idMaquina">${idMaquina}</label>
+	
+		<div class="form-group">
+			<label for="usr">Fecha programada:</label> <input
+				type="text" class="form-control customInput  fecha" id="fechaProgramada">
+		</div>
+	
+	
+	
 	<div id="campos">
 		<div class="form-group">
 			<label for="usr">Ingrese Nombre Input checkbox:</label> <input
-				type="text" class="form-control customInput" id="usr">
+				type="text" class="form-control customInput camposFormulario" id="usr">
 		</div>
 
 
@@ -136,10 +228,11 @@
 		class="btn btn-default btn-sm">
 		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> +
 	</button>
-	
+
 	<button type="button" onclick="modalEPP()"
 		class="btn btn-default btn-sm">
-		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span> agregar EPP
+		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
+		agregar EPP
 	</button>
 
 

@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.com.mantenimiento.dto.MaquinaProyectoIdDTO;
 import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.entity.Proyecto;
-import ar.com.mantenimiento.springsecurity.dao.impl.MaquinaDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UsuarioAsignadoDAO;
 
@@ -25,9 +24,6 @@ public class OperarioController {
 
 	@Autowired
 	private ProyectoDAO proyectoDAO;
-
-	@Autowired
-	private MaquinaDAO maquinasDAO;
 
 	@Autowired
 	private UsuarioAsignadoDAO usuarioAsignadoDAO;

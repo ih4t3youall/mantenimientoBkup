@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.com.mantenimiento.dto.EPPDTO;
 import ar.com.mantenimiento.entity.Epp;
 import ar.com.mantenimiento.springsecurity.dao.impl.EPPDAO;
+import ar.com.mantenimiento.utility.ImageConverterUtility;
 
 @Controller
 @Transactional
@@ -116,15 +117,20 @@ public class EPPController {
 		List<EPPDTO> eppdtos = new ArrayList<EPPDTO>();
 		for (Epp epp : epps) {
 
-			File sourceimage = new File(epp.getImagen());
-			BufferedImage image = ImageIO.read(sourceimage);
+			
+			String convertImage = ImageConverterUtility.convertImage(epp.getImagen());
+			
+			
+//			File sourceimage = new File(epp.getImagen());
+//			BufferedImage image = ImageIO.read(sourceimage);
 
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(image, "jpg", baos);
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			ImageIO.write(image, "jpg", baos);
 			EPPDTO eppdto = dozerMapper.map(epp, EPPDTO.class);
-			byte[] encode = Base64.getEncoder().encode(baos.toByteArray());
-			eppdto.setImagen(new String(encode, "UTF-8"));
-			eppdto.setByteImg(encode);
+//			byte[] encode = Base64.getEncoder().encode(baos.toByteArray());
+//			eppdto.setImagen(new String(encode, "UTF-8"));
+//			eppdto.setByteImg(encode);
+			eppdto.setImagen(convertImage);
 			eppdtos.add(eppdto);
 
 		}

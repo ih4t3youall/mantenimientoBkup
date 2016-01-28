@@ -109,18 +109,60 @@
 
 			});
 
-	
-	var idModal="";
+	function submitForm() {
+
+		var form = new Object();
+
+		form.formItems = [];
+
+		form.observaciones = $("#observaciones2").val();
+		form.aptoServicio = $("#aptoServicio").val();
+
+		$(".fila").each(function(index, item) {
+
+			var formItem = new Object();
+
+			var combos = $(item).find("select");
+			var observaciones = $(item).find("p");
+			var label = $(item).find("label");
+
+			formItem.label = $(label).html();
+			formItem.posee = $(combos[0]).val();
+			formItem.estado = $(combos[1]).val();
+			formItem.observaciones = $(observaciones).val();
+
+			form.formItems.push(formItem);
+
+		});
+
+		var sendable = JSON.stringify(form);
+
+		$.ajax({
+
+			url : "submitChecklist.htm",
+			type : "GET",
+			data : "form=" + sendable,
+			success : function(data) {
+
+				console.log("volvi");
+
+			}
+
+		});
+
+	}
+
+	var idModal = "";
 	function modalObservaciones(idSecreto) {
-	idModal = idSecreto;
-	$("#observaciones").val("");
+		idModal = idSecreto;
+		$("#observaciones").val("");
 		$('#myModal').modal('show');
 
 	}
 
 	function cerrarModalObservaciones(nose) {
 		var observaciones = $("#observaciones").val();
-		$("#"+idModal).val(observaciones);
+		$("#" + idModal).val(observaciones);
 		$('#myModal').modal('hide');
 
 	}
@@ -206,14 +248,15 @@
 		</div>
 		<div class="col-md-2">
 			<input type="text" aria-describedby="basic-addon1"
-				placeholder="Fecha Programada" class="form-control fecha" />
+				placeholder="Fecha realizacion" id="fechaRealizacion"
+				class="form-control fecha" />
 		</div>
 		<div class="col-md-2">
 			<label>Fecha Programada: </label>
 		</div>
 		<div class="col-md-2">
 			<!-- FIXME -->
-			<label>Aca va una fecha que no se bien como se carga</label>
+			<label>${form.fechaProgramada}</label>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
@@ -279,7 +322,12 @@
 
 		<div class="col-md-8">
 
-			<label>Aca van las imagenes de los casquitos</label>
+			<c:forEach items="${eppObligatorio}" var="epp">
+
+
+				<img src="data:image/jpeg;base64,${epp.imagen}" value="${epp.idEpp}" />
+
+			</c:forEach>
 		</div>
 
 		<div class="col-md-1"></div>
@@ -310,7 +358,12 @@
 
 		<div class="col-md-8">
 
-			<label>Aca van las imagenes de los casquitos</label>
+			<c:forEach items="${eppOpcional}" var="epp">
+
+
+				<img src="data:image/jpeg;base64,${epp.imagen}" value="${epp.idEpp}" />
+
+			</c:forEach>
 		</div>
 
 		<div class="col-md-1"></div>
@@ -368,8 +421,8 @@
 
 					<c:forEach items="${form.formItems}" var="item">
 
-						<tr role="row" class="odd">
-							<td class="sorting_1">${item.label}</td>
+						<tr role="row" class="odd fila">
+							<td class="sorting_1"><label>${item.label}</label></td>
 							<td><select>
 									<option>si</option>
 									<option>no</option>
@@ -380,16 +433,13 @@
 									<option>B</option>
 									<option>M</option>
 									<option>N/C</option>
-							</select>
-							
-							 <input type="text" style="display: none;"
-								id="${item.label}secret" value=""/>
-								
-								</td>
+							</select></td>
 							<td>
-							<button class="btn btn-secondary" type="button"
+								<button class="btn btn-secondary" type="button"
 									onClick="modalObservaciones('${item.label}secret')">Observaciones</button>
-									</td>
+								<p id="${item.label}secret" style="display: none;"></p>
+
+							</td>
 						</tr>
 
 
@@ -421,7 +471,8 @@
 
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-			<label>Observaciones:  </label><textarea class="form-control" rows="5" id="observaciones2"></textarea>
+			<label>Observaciones: </label>
+			<textarea class="form-control" rows="5" id="observaciones2"></textarea>
 
 		</div>
 
@@ -482,9 +533,9 @@
 
 		<div class="col-md-2">
 
-			<select>
-				<option>si</option>
-				<option>no</option>
+			<select id="aptoServicio">
+				<option value="true">si</option>
+				<option value="false">no</option>
 
 			</select>
 
@@ -496,6 +547,31 @@
 
 
 	</div>
+
+	<!-- 	boton enviar -->
+
+	<div class="row">
+		<div class="col-md-1"></div>
+
+
+		<div class="col-md-3"></div>
+		<div class="col-md-4">
+			<button class="btn btn-secondary btn-lg btn-block" type="button"
+				onclick="submitForm()">SUBMIT</button>
+
+
+		</div>
+
+		<div class="col-md-2"></div>
+
+
+		<div class="col-md-1"></div>
+
+
+
+	</div>
+
+
 	<!-- 	separador -->
 	<div class="row">
 		<div class="col-md-1"></div>
@@ -508,7 +584,7 @@
 	<!-- 	fin separador -->
 
 
-<a href="inicio.htm"><input type="button"  value="volver" /></a>
+	<a href="inicio.htm"><input type="button" value="volver" /></a>
 
 </body>
 </html>

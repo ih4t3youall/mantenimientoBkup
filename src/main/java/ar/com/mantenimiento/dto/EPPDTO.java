@@ -13,6 +13,8 @@ public class EPPDTO {
 	private String imagen;
 
 	private String nombre;
+	
+	private boolean obligatorio;
 
 	private List<FormHasEpp> formHasEpps;
 
@@ -67,5 +69,15 @@ public class EPPDTO {
 	public void setByteImg(byte[] byteImg) {
 		this.byteImg = byteImg;
 	}
+
+	public boolean isObligatorio() {
+		return obligatorio;
+	}
+
+	public void setObligatorio(boolean obligatorio) {
+		this.obligatorio = obligatorio;
+	}
+	
+	
 
 }

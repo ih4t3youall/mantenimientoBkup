@@ -1,19 +1,6 @@
 package ar.com.mantenimiento.dto;
 
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import ar.com.mantenimiento.entity.FormHasEpp;
 import ar.com.mantenimiento.entity.FormItem;
@@ -26,9 +13,9 @@ public class FormDTO {
 
 	private String equipo;
 
-	private Date fechaProgramada;
+	private String fechaProgramada;
 
-	private Date fechaRealizacion;
+	private String fechaRealizacion;
 
 	private int nroInterno;
 
@@ -37,6 +24,8 @@ public class FormDTO {
 	private String observaciones;
 
 	private Maquina maquina;
+
+	private Boolean aptoServicio;
 
 	private List<FormItem> formItems;
 
@@ -66,20 +55,12 @@ public class FormDTO {
 		this.equipo = equipo;
 	}
 
-	public Date getFechaProgramada() {
+	public String getFechaProgramada() {
 		return fechaProgramada;
 	}
 
-	public void setFechaProgramada(Date fechaProgramada) {
+	public void setFechaProgramada(String fechaProgramada) {
 		this.fechaProgramada = fechaProgramada;
-	}
-
-	public Date getFechaRealizacion() {
-		return fechaRealizacion;
-	}
-
-	public void setFechaRealizacion(Date fechaRealizacion) {
-		this.fechaRealizacion = fechaRealizacion;
 	}
 
 	public int getNroInterno() {
@@ -128,6 +109,22 @@ public class FormDTO {
 
 	public void setFormHasEpps(List<FormHasEpp> formHasEpps) {
 		this.formHasEpps = formHasEpps;
+	}
+
+	public Boolean getAptoServicio() {
+		return aptoServicio;
+	}
+
+	public void setAptoServicio(Boolean aptoServicio) {
+		this.aptoServicio = aptoServicio;
+	}
+
+	public String getFechaRealizacion() {
+		return fechaRealizacion;
+	}
+
+	public void setFechaRealizacion(String fechaRealizacion) {
+		this.fechaRealizacion = fechaRealizacion;
 	}
 
 }

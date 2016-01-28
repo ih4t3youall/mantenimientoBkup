@@ -24,9 +24,6 @@ public class Epp implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-one association to FormHasEpp
-	@OneToMany(mappedBy="epp")
-	private List<FormHasEpp> formHasEpps;
 
 	public Epp() {
 	}
@@ -69,26 +66,6 @@ public class Epp implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<FormHasEpp> getFormHasEpps() {
-		return this.formHasEpps;
-	}
 
-	public void setFormHasEpps(List<FormHasEpp> formHasEpps) {
-		this.formHasEpps = formHasEpps;
-	}
-
-	public FormHasEpp addFormHasEpp(FormHasEpp formHasEpp) {
-		getFormHasEpps().add(formHasEpp);
-		formHasEpp.setEpp(this);
-
-		return formHasEpp;
-	}
-
-	public FormHasEpp removeFormHasEpp(FormHasEpp formHasEpp) {
-		getFormHasEpps().remove(formHasEpp);
-		formHasEpp.setEpp(null);
-
-		return formHasEpp;
-	}
 
 }

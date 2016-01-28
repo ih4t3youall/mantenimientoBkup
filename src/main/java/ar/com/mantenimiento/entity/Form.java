@@ -45,10 +45,11 @@ public class Form implements Serializable {
 
 	//bi-directional many-to-one association to Maquina
 	@ManyToOne
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.DELETE })
 	private Maquina maquina;
 
-	//bi-directional many-to-one association to FormHasEpp
-	@OneToMany(mappedBy="form")
+	
+	@OneToMany
 	private List<FormHasEpp> formHasEpps;
 
 	//bi-directional many-to-one association to FormItem
@@ -139,19 +140,6 @@ public class Form implements Serializable {
 		this.formHasEpps = formHasEpps;
 	}
 
-	public FormHasEpp addFormHasEpp(FormHasEpp formHasEpp) {
-		getFormHasEpps().add(formHasEpp);
-		formHasEpp.setForm(this);
-
-		return formHasEpp;
-	}
-
-	public FormHasEpp removeFormHasEpp(FormHasEpp formHasEpp) {
-		getFormHasEpps().remove(formHasEpp);
-		formHasEpp.setForm(null);
-
-		return formHasEpp;
-	}
 
 	public List<FormItem> getFormItems() {
 		return this.formItems;
