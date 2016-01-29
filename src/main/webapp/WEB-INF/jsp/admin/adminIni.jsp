@@ -22,7 +22,7 @@
 
 <script src="<c:url value='/static/bootstrap-notify/bootstrap-notify.js' />"></script>
 <script src="<c:url value='/static/bootstrap-notify/bootstrap-notify.min.js' />"></script>
-
+<link rel="stylesheet" href="<c:url value='/static/bootstrap-notify/animate.css' />">
 
 
 
