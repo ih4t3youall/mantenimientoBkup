@@ -32,7 +32,8 @@
 							    monthsShort: ["En", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dic"],
 							    today: "Hoy",
 							    clear: "Clear",
-							    format: "dd/mm/yyyy",
+							    //FIXME VOLVE A dd/mm/yyyy
+							    format: "MM/dd/yyyy",
 							    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
 							    weekStart: 0,
 							    onClose:function(){
@@ -50,7 +51,7 @@
 							
 							$('.datepicker').hide();
 							
-						});
+						});	
 						
 					});
 	
@@ -101,7 +102,7 @@
 			aux.label = $(item).val();
 
 			aux.idformItem = $(item).attr("id");
-
+// FIXME esto pregunta por algo que obviamente existe
 			if (aux != "") {
 				enviar.push(aux);
 			}

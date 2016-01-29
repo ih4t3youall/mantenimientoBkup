@@ -57,46 +57,42 @@
 
 			});
 
-	
-	
+	$(document)
+			.ready(
+					function() {
 
-	$(document).ready(function(){
-		
+						var item = $("#eppObligatorio");
 
-		var item = $("#eppObligatorio");
+						$(item)
+								.find("img")
+								.each(
+										function(index, item2) {
 
-		  $(item).find("img").each(function(index,item2){
-		  
-		     var item = $(item2).attr("id") ;
-      
-		    $("#contenedor").append("<input style='display: none;' class='eppObligatorio' value='"+item+"'>");
-		      
-		    
-		  
-		  });
-		  
+											var item = $(item2).attr("id");
 
+											$("#contenedor")
+													.append(
+															"<input style='display: none;' class='eppObligatorio' value='"+item+"'>");
 
-			var item = $("#eppOpcional");
+										});
 
-			  $(item).find("img").each(function(index,item2){
-			  
-			     var item = $(item2).attr("id") ;
-	        
-			    $("#contenedor").append("<input style='display: none;' class='eppOpcional' value='"+item+"'>");
-			      
-			    
-			  
-			  });
-		
-		
-	});
-	
-	
-	
-	
-	
-	
+						var item = $("#eppOpcional");
+
+						$(item)
+								.find("img")
+								.each(
+										function(index, item2) {
+
+											var item = $(item2).attr("id");
+
+											$("#contenedor")
+													.append(
+															"<input style='display: none;' class='eppOpcional' value='"+item+"'>");
+
+										});
+
+					});
+
 	$(document)
 			.ready(
 					function() {
@@ -107,56 +103,109 @@
 
 											var seleccion = [];
 
+											$('#multiple :selected')
+													.each(
+															function(i,
+																	selected) {
+																var item = new Object();
+																item.valor = $(
+																		selected)
+																		.val();
+																item.url = $(
+																		selected)
+																		.attr(
+																				"data-img-src");
 
+																seleccion
+																		.push(item);
 
+															});
 
-											$('#multiple :selected').each(function(i,	selected) {
-											            var item = new Object();
-											            item.valor = $(selected).val();
-											            item.url = $(selected).attr("data-img-src");
+											$(seleccion)
+													.each(
+															function(index,
+																	item) {
 
-											  
-											            seleccion.push(item);
-											            
-											                       
-											                       
-											                       
-											});	
+																console
+																		.log(item.valor);
 
-											$(seleccion).each(function(index,item){
+															});
 
+											$(seleccion)
+													.each(
+															function(index,
+																	item) {
 
-											  console.log(item.valor);
-											  
+																if ($("#check")
+																		.is(
+																				':checked')) {
+																	if (!existe(item.valor)) {
+																		$(
+																				"#contenedor")
+																				.append(
+																						"<input style='display: none;' class='eppOpcional' value='"+item.valor+"'>");
+																		$(
+																				"#eppOpcional")
+																				.append(
+																						"<img id='"+item.valor+"' src='"+item.url+"'/>");
+																	} else {
 
-											});
+																		console
+																				.log("no agrego");
+																	}
 
+																} else {
+																	if (!existe(item.valor)) {
+																		$(
+																				"#contenedor")
+																				.append(
+																						"<input style='display: none;' class='eppObligatorio' value='"+item.valor+"'>");
+																		$(
+																				"#eppObligatorio")
+																				.append(
+																						"<img id='"+item.valor+"' src='"+item.url+"'/>");
+																	} else {
 
+																		console
+																				.log("no agrego");
+																	}
 
-											$(seleccion).each(function(index,	item) {
-											  
-											if ($("#check").is(	':checked')) {
-											  
-											$("#contenedor").append("<input style='display: none;' class='eppOpcional' value='"+item.valor+"'>");
-											  
-											  
-											 $("#eppOpcional").append("<img id='"+item.valor+"' src='"+item.url+"'/>");
-											  
-											} else {
-											  
-											 $("#contenedor").append("<input style='display: none;' class='eppObligatorio' value='"+item.valor+"'>");
-											  $("#eppObligatorio").append("<img id='"+item.valor+"' src='"+item.url+"'/>");
-																										}
-											  
-											  
-											  
-											});
+																}
 
-
+															});
 
 										});
 
 					});
+
+	// 	para cuando agrego un nuevo epp ver si ya esta cargado o no y no cargarlo 2 veces
+	function existe(id) {
+
+		var flag = false;
+
+		$(".eppOpcional").each(function(index, item) {
+
+			if (id == $(item).val()) {
+
+				flag = true;
+
+			}
+
+		});
+
+		$(".eppObligatorio").each(function(index, item) {
+
+			if (id == $(item).val()) {
+
+				flag = true;
+
+			}
+
+		});
+
+		return flag;
+
+	}
 
 	function agregarCampo() {
 
@@ -180,8 +229,6 @@
 			}
 		});
 
-
-
 		if (enviar.length > 0) {
 
 			var maquina = $("#idMaquina").html();
@@ -199,14 +246,11 @@
 				eppObligatorio.push($(item).val());
 
 			});
-		  
 
 			var fechaProgramada = $("#fechaProgramada").val();
-		  
-		var send = JSON.stringify(enviar);
-		 
-		  
-		  
+
+			var send = JSON.stringify(enviar);
+
 			$.ajax({
 
 				url : "submitTemplateFormulario.htm",
@@ -234,8 +278,18 @@
 
 	}
 
-	function modalEPP() {
+	function marcarObligatorio() {
 
+		
+		
+	}
+
+	function marcarOpcional() {
+
+	}
+
+	function modalEPP() {
+		
 		$.ajax({
 
 			url : "eppModal.htm",
@@ -245,9 +299,13 @@
 				$('#modalEPP').modal('show');
 				$(".modal-EPP-body").empty();
 				$(".modal-EPP-body").append(data);
+// 				marcarObligatorio();
+				
 			}
 
 		});
+		
+		
 
 	}
 </script>
@@ -291,38 +349,38 @@
 	</div>
 
 
-<div id="eppObligatorio">
-<label>Epp obligatorio</label>
-<c:forEach items="${obligatorio}" var="epp">
+	<div id="eppObligatorio">
+		<label>Epp obligatorio</label>
+		<c:forEach items="${obligatorio}" var="epp">
 
-<img id="${epp.idEpp}" src="data:image/jpeg;base64,${epp.imagen}"/>
-
-
-</c:forEach>
-</div>
-<br>
-<div id="eppOpcional">
-<label>EPP Opcional</label>
-<c:forEach items="${opcional}" var="epp">
-
-<img id="${epp.idEpp}" src="data:image/jpeg;base64,${epp.imagen}"/>
+			<img id="${epp.idEpp}" src="data:image/jpeg;base64,${epp.imagen}" />
 
 
-</c:forEach>
+		</c:forEach>
+	</div>
+	<br>
+	<div id="eppOpcional">
+		<label>EPP Opcional</label>
+		<c:forEach items="${opcional}" var="epp">
 
-</div>
+			<img id="${epp.idEpp}" src="data:image/jpeg;base64,${epp.imagen}" />
+
+
+		</c:forEach>
+
+	</div>
 
 
 	<div id="campos">
-		
+
 		<c:forEach items="${form.formItems}" var="item">
-		
+
 			<div class="form-group">
 				<label for="usr">Ingrese Nombre Input checkbox:</label> <input
-					type="text" class="form-control customInput textos" id="${item.idformItem}" value="${item.label}"
-					id="usr">
+					type="text" class="form-control customInput textos"
+					id="${item.idformItem}" value="${item.label}" id="usr">
 			</div>
-		
+
 		</c:forEach>
 
 

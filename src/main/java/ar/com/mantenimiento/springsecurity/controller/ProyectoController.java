@@ -32,8 +32,9 @@ public class ProyectoController {
 		ModelAndView mav = new ModelAndView("admin/formularios/formCrearProyecto");
 		Proyecto proyecto = new Proyecto();
 		proyecto.setEmpresa(new Empresa());
-		mav.addObject("crearProyectoDTO",new CrearProyectoDTO());
 		List<Empresa> empresas = empresaDAO.getAll(Empresa.class);
+
+		mav.addObject("crearProyectoDTO",new CrearProyectoDTO());
 		mav.addObject("empresas",empresas);
 		
 		return mav;

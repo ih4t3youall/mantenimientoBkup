@@ -280,8 +280,8 @@
 
 
 	<div class="form-group" id="divComboMaquina" style="display: none;">
-		<label for="sel1">Select list:</label> <select
-			onchange="seleccionoMaquina()" class="form-control check"
+		<label for="sel1">Select list:</label> 
+		<select 	onchange="seleccionoMaquina()" class="form-control check"
 			id="comboMaquinas">
 
 

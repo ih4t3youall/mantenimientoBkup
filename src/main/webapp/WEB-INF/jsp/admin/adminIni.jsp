@@ -16,6 +16,21 @@
 
 <script src="<c:url value='/static/jquery/jquery-1.11.3.min.js' />"></script>
 
+
+
+<!-- notify  -->
+
+<script src="<c:url value='/static/bootstrap-notify/bootstrap-notify.js' />"></script>
+<script src="<c:url value='/static/bootstrap-notify/bootstrap-notify.min.js' />"></script>
+
+
+
+
+
+<!-- fin nofity -->
+
+
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="<c:url value='/static/bootstrap-3.3.6-dist/css/bootstrap.min.css' />">
