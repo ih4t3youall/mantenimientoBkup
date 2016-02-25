@@ -14,7 +14,13 @@
 
 <html>
 <head>
-
+<style type="text/css">
+.active {
+	background-color: #f5f5f5;
+	border: 1px solid blue;
+	padding: 4px;
+}
+</style>
 
 <script type="text/javascript">
 	//FIXME
@@ -176,6 +182,11 @@
 
 										});
 
+						$("#closeModalEliminar").click(function() {
+							//FIXME
+
+						});
+
 					});
 
 	// 	para cuando agrego un nuevo epp ver si ya esta cargado o no y no cargarlo 2 veces
@@ -280,16 +291,116 @@
 
 	function marcarObligatorio() {
 
-		
-		
 	}
 
 	function marcarOpcional() {
 
 	}
 
-	function modalEPP() {
+	function setSelected(id){
+
+		  if ($("#"+id).attr("class") == "active"){
+		  
+		    $("#"+id).removeClass("active");
+		  }else {
+		    
+		  $("#"+id).addClass("active");
+		  
+		  }
+
+
+		}
+	
+	
+	function modalEliminarEPPObligatorio() {
+
+		var victim = [];
+		$("#eppObligatorio").find("img").each(function(index, item) {
+
+			var id = $(item).attr("id");
+			victim.push(id);
+
+		});
+
+		$.ajax({
+
+			url : "eliminarEppModalObligatorio.htm",
+			type : "GET",
+			data : "victim=" + victim,
+			success : function(data) {
+
+				$('#modalEliminarEPP').modal('show');
+				$(".modal-EPP-body").empty();
+				$(".modal-EPP-body").append(data);
+				// 				marcarObligatorio();
+
+			}
+
+		});
+
+	}
+
+	function eliminarEPP(){
 		
+		$(".active").each(function (index,item){
+
+
+			  var id = $(item).attr("id");
+			  eliminarEPPObligatorio(id);
+			  eliminarEPPOpcional(id);
+			});
+		
+		
+		
+	}
+	
+	
+	function eliminarEPPObligatorio(id) {
+
+		$("#eppObligatorio").find("img").each(function(index, item) {
+
+			if ($(item).attr("id") == id) {
+
+				$(item).remove();
+			}
+
+		});
+
+		$(".eppObligatorio").each(function(index, item) {
+
+			if ($(item).val() == id) {
+				$(item).remove();
+
+			}
+
+		});
+
+	}
+
+	function eliminarEPPOpcional(id) {
+
+		$("#eppOpcional").find("img").each(function(index, item) {
+
+			if ($(item).attr("id") == id) {
+
+				$(item).remove();
+			}
+
+		});
+
+		$(".eppOpcional").each(function(index, item) {
+
+			if ($(item).val() == id) {
+				$(item).remove();
+
+			}
+
+		});
+
+	}
+
+	function modalEPP() {
+
 		$.ajax({
 
 			url : "eppModal.htm",
@@ -299,15 +410,23 @@
 				$('#modalEPP').modal('show');
 				$(".modal-EPP-body").empty();
 				$(".modal-EPP-body").append(data);
-// 				marcarObligatorio();
-				
+				// 				marcarObligatorio();
+
 			}
 
 		});
-		
-		
 
 	}
+	
+	
+	
+// 	function setSelected(id){
+		
+// 		$(id).addClass("active")
+		
+		
+		
+// 	}
 </script>
 </head>
 <body>
@@ -334,6 +453,10 @@
 
 		</div>
 	</div>
+	<!-- Fin Modal  EPP -->
+
+	
+
 
 
 	<h3>Crear nuevo checklist</h3>
@@ -353,22 +476,34 @@
 		<label>Epp obligatorio</label>
 		<c:forEach items="${obligatorio}" var="epp">
 
-			<img id="${epp.idEpp}" src="data:image/jpeg;base64,${epp.imagen}" />
+			<img onClick="setSelected(${epp.idEpp})" id="${epp.idEpp}"
+				src="data:image/jpeg;base64,${epp.imagen}" />
 
 
 		</c:forEach>
 	</div>
+	
+
+
+
+
 	<br>
 	<div id="eppOpcional">
 		<label>EPP Opcional</label>
 		<c:forEach items="${opcional}" var="epp">
 
-			<img id="${epp.idEpp}" src="data:image/jpeg;base64,${epp.imagen}" />
+			<img onClick="setSelected(${epp.idEpp})" id="${epp.idEpp}"
+				src="data:image/jpeg;base64,${epp.imagen}" />
 
 
 		</c:forEach>
 
 	</div>
+	<button type="button" onclick="eliminarEPP()"
+		class="btn btn-default btn-sm">
+		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
+		eliminar EPP 
+	</button>
 
 
 	<div id="campos">
@@ -395,6 +530,9 @@
 		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
 		agregar EPP
 	</button>
+
+
+
 
 
 	<input type="button" id="boton" onclick="doSubmit()"

@@ -107,6 +107,64 @@ public class EPPController {
     return bufferedImage;
 }
 
+    
+    
+    @RequestMapping("admin/eliminarEppModalObligatorio.htm")
+    public ModelAndView eliminarEppModalObligatorio(int[] victim) throws IOException{
+    	
+
+		ModelAndView mav = new ModelAndView("admin/formularios/EPPModal");
+
+		List<Epp> epps = EPPDAO.getAll(Epp.class);
+		
+		List<Epp> victims = new ArrayList<>();
+		
+		
+		for (Epp epp : epps) {
+			
+			for(int i = 0 ; i<victim.length; i++){
+				
+				if(epp.getIdEpp() == victim[i]){
+					victims.add(epp);
+					
+				}
+				
+			}
+			
+		}
+		
+		
+		
+
+		List<EPPDTO> eppdtos = new ArrayList<EPPDTO>();
+		for (Epp epp : victims) {
+
+			
+			String convertImage = ImageConverterUtility.convertImage(epp.getImagen());
+			
+			
+//			File sourceimage = new File(epp.getImagen());
+//			BufferedImage image = ImageIO.read(sourceimage);
+
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//			ImageIO.write(image, "jpg", baos);
+			EPPDTO eppdto = dozerMapper.map(epp, EPPDTO.class);
+//			byte[] encode = Base64.getEncoder().encode(baos.toByteArray());
+//			eppdto.setImagen(new String(encode, "UTF-8"));
+//			eppdto.setByteImg(encode);
+			eppdto.setImagen(convertImage);
+			eppdtos.add(eppdto);
+
+		}
+
+		mav.addObject("epps", eppdtos);
+
+		return mav;
+    	
+    	
+    	
+    }
+    
 	@RequestMapping("admin/eppModal.htm")
 	public ModelAndView eppModal() throws IOException {
 

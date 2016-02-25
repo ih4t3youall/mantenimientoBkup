@@ -52,10 +52,12 @@ public class EPPDAO extends AbstractDao<Integer, Epp> implements IEPPDAO{
 			Criteria crit = createEntityCriteria();
 			crit.add(Restrictions.eq("idEpp", formHasEpp.getIdEpp()));
 			Epp epp = (Epp) crit.uniqueResult();
+			
+			if(epp != null){
 			EPPDTO map = dozerMapper.map(epp, EPPDTO.class);
 			map.setObligatorio((1==formHasEpp.getObligatorio()));
-			
 			epps.add(map);
+			}
 			
 		}
 		

@@ -221,6 +221,12 @@ public class AdminController {
 			formHasEpp.setIdEpp(epp.getIdEpp());
 			formHasEpp.setIdForm(form.getId());
 		}
+		if(formHasEpps.size() == 0){
+			FormHasEpp formHasEpp = new FormHasEpp();
+			formHasEpp.setIdForm(form.getId());
+			formHasEpps.add(formHasEpp);
+		}
+		
 
 		eppDAO.guardarEPP(formHasEpps);
 
