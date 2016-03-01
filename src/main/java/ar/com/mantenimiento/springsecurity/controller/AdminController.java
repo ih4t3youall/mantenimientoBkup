@@ -1,17 +1,23 @@
 package ar.com.mantenimiento.springsecurity.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.FileUtils;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.com.mantenimiento.dto.EPPDTO;
@@ -35,6 +41,9 @@ import ar.com.mantenimiento.utility.ImageConverterUtility;
 @Transactional
 public class AdminController {
 
+	
+	private static String UPLOAD_LOCATION = "C:/mytemp/pdfMaquina/";
+	
 	@Autowired
 	private FormDAO formDAO;
 
@@ -151,6 +160,21 @@ public class AdminController {
 		return mav;
 
 	}
+	
+	@RequestMapping("admin/subirPdfMaquina.htm")
+	public ModelAndView guardarArchivo(@RequestParam("file") MultipartFile file, @RequestParam("nombre") String nombre,
+			@RequestParam("descripcion") String descripcion) throws IOException {
+		String url = UPLOAD_LOCATION + file.getOriginalFilename();
+		File archivo = new File(url);
+
+		ModelAndView mav = new ModelAndView("admin/exito/exito");
+		mav.addObject("mensaje", "EPP cargado con exito!");
+		return mav;
+
+	}
+	
+	
+	
 
 	// submit del segundo formulario
 	@RequestMapping("admin/submitTemplateFormulario.htm")

@@ -21,6 +21,8 @@ public class Maquina implements Serializable {
 	private String descripcion;
 
 	private String nombre;
+	
+	private String urlPdf;
 
 	//bi-directional many-to-one association to Form
 	@OneToMany(mappedBy="maquina")
@@ -86,5 +88,14 @@ public class Maquina implements Serializable {
 	public void setProyectos(List<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 	}
+
+	public String getUrlPdf() {
+		return urlPdf;
+	}
+
+	public void setUrlPdf(String urlPdf) {
+		this.urlPdf = urlPdf;
+	}
+	
 
 }

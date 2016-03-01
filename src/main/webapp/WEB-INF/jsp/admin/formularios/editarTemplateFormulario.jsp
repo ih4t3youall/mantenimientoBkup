@@ -25,6 +25,7 @@
 <script type="text/javascript">
 	//FIXME
 
+	
 	$(document).ready(
 			function() { // Script del Navegador
 				//porque como hay integers me pisa el placeholder con un cero y en el placeholder esta el valor de cada campo
@@ -60,8 +61,24 @@
 					$('.datepicker').hide();
 
 				});
+				//acomoda la fecha por un error de formato
+
+				acomodarFecha();
 
 			});
+	
+	
+	function acomodarFecha(){
+		var fecha = $('#fechaProgramada').val();
+		
+		var anio = $('#fechaProgramada').val().slice(0,4);
+		var mes =  $('#fechaProgramada').val().slice(5,7);
+		var dia =  $('#fechaProgramada').val().slice(8,10);
+
+		
+		$('#fechaProgramada').datepicker("setDate", new Date(anio,mes,dia) );		
+		
+	}
 
 	$(document)
 			.ready(
@@ -227,6 +244,30 @@
 	}
 
 	function doSubmit() {
+		
+		var idMaquina = $("#idMaquina").html();
+
+		 var oMyForm = new FormData($("#upload-file-form")[0]);
+		  oMyForm.append("idMaquina",idMaquina);
+
+			$.ajax({
+			    url: "uploadFile",
+			    type: "POST",
+			    data: oMyForm,
+			    enctype: 'multipart/form-data',
+			    processData: false,
+			    contentType: false,
+			    cache: false,
+			    success: function () {
+			      // Handle upload success
+			      // ...
+			    },
+			    error: function () {
+			      // Handle upload error
+			      // ...
+			    }
+			  });
+
 
 		var enviar = [];
 		$(".textos").each(function(index, item) {
@@ -262,6 +303,8 @@
 
 			var send = JSON.stringify(enviar);
 
+			$("#frmAlta").submit();
+			
 			$.ajax({
 
 				url : "submitTemplateFormulario.htm",
@@ -376,6 +419,8 @@
 		});
 
 	}
+	
+
 
 	function eliminarEPPOpcional(id) {
 
@@ -424,7 +469,36 @@
 		
 // 		$(id).addClass("active")
 		
-		
+	
+
+// bind the on-change event
+// $(document).ready(function() {
+//   $("#upload-file-input").on("change", uploadFile);
+// });
+
+/**
+ * Upload the file sending it via Ajax at the Spring Boot server.
+ */
+// function uploadFile() {
+//   $.ajax({
+//     url: "uploadFile",
+//     type: "POST",
+//     data: new FormData($("#upload-file-form")[0]),
+//     enctype: 'multipart/form-data',
+//     processData: false,
+//     contentType: false,
+//     cache: false,
+//     success: function () {
+//       // Handle upload success
+//       // ...
+//     },
+//     error: function () {
+//       // Handle upload error
+//       // ...
+//     }
+//   });
+// } // function uploadFile
+
 		
 // 	}
 </script>
@@ -461,6 +535,21 @@
 
 	<h3>Crear nuevo checklist</h3>
 	<label id="idMaquina">${idMaquina}</label>
+	<br>
+
+
+
+
+<div id="divUploadDiv">
+
+<form id="upload-file-form">
+  <label for="upload-file-input">Subir pdf:</label>
+  <input id="upload-file-input" type="file" name="uploadfile" accept="*" />
+</form>
+
+
+</div>
+
 
 	<div class="form-group">
 
@@ -504,6 +593,8 @@
 		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
 		eliminar EPP 
 	</button>
+
+
 
 
 	<div id="campos">

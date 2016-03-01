@@ -162,6 +162,26 @@
 	function asignarEPP() {
 
 	}
+	
+	function uploadFormData(){
+	    $('#result').html('');
+	 
+	  var oMyForm = new FormData();
+	  oMyForm.append("file", file2.files[0]);
+	 
+	  $.ajax({
+	    url: 'rest/cont/upload',
+	    data: oMyForm,
+	    dataType: 'text',
+	    processData: false,
+	    contentType: false,
+	    type: 'POST',
+	    success: function(data){
+	      $('#result').html(data);
+	    }
+	  });
+	}
+
 
 	function modalEPP() {
 
@@ -207,6 +227,22 @@
 	</div>
 
 
+<!--  Form 2 -->
+<h1> hola</h1>
+<i>Uploading File With Ajax</i><br/>
+<form id="form2" method="post" action="/spring-mvc-file-upload/rest/cont/upload" enctype="multipart/form-data">
+  <!-- File input -->    
+  <input name="file2" id="file2" type="file" /><br/>
+</form>
+ 
+
+<button value="Submit" onclick="uploadFormData()" >Upload</button><i>Using FormData Object</i>
+ 
+<div id="result"></div>
+</body>
+</html>
+
+
 	<h3>Crear nuevo checklist</h3>
 	<label id="idMaquina">${idMaquina}</label>
 	
@@ -235,6 +271,8 @@
 		<span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span>
 		agregar EPP
 	</button>
+
+
 
 
 	<input type="button" id="boton" onclick="doSubmit()"
