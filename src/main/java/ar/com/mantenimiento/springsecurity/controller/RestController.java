@@ -9,6 +9,11 @@ import java.nio.file.Paths;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,16 +25,34 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ar.com.mantenimiento.entity.Maquina;
 import ar.com.mantenimiento.springsecurity.dao.impl.MaquinaDAO;
+import ar.com.mantenimiento.utility.AppConfig;
 
 @Transactional
 @Controller
+@ComponentScan(basePackages = { "ar.com.mantenimiento*" })
+@PropertySource("classpath:filesystem.properties")
+@Configuration
 public class RestController {
  
-	private static String UPLOAD_LOCATION = "C:/mytemp/pdf";
+//	private static String UPLOAD_LOCATION = "C:/mytemp/pdf";
+//	@Value("${path.pdf}")
+//	private static String UPLOAD_LOCATION;
    
    @Autowired
    private MaquinaDAO maquinaDAO;
    
+   @Autowired
+   private Environment environment;
+   
+   @Autowired
+   private AppConfig appConfig;
+   
+   
+   public RestController(){
+	   
+	   
+	   
+   }
 
 @RequestMapping(value = "admin/uploadFile", method = RequestMethod.POST)
 @ResponseBody
@@ -46,7 +69,7 @@ public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile up
     // application have write permissions on such directory)
     String filename = uploadfile.getOriginalFilename();
     
-    String filepath = Paths.get(UPLOAD_LOCATION, filename).toString();
+    String filepath = Paths.get( appConfig.pathPdf(), filename).toString();
     
     // Save the file locally
     BufferedOutputStream stream =

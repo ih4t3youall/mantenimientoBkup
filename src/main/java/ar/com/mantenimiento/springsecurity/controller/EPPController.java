@@ -5,11 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -29,13 +27,15 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.com.mantenimiento.dto.EPPDTO;
 import ar.com.mantenimiento.entity.Epp;
 import ar.com.mantenimiento.springsecurity.dao.impl.EPPDAO;
+import ar.com.mantenimiento.utility.AppConfig;
 import ar.com.mantenimiento.utility.ImageConverterUtility;
 
 @Controller
 @Transactional
 public class EPPController {
 
-	private static String UPLOAD_LOCATION = "C:/mytemp/";
+//	private static String UPLOAD_LOCATION = "C:/mytemp/";
+//	private static String UPLOAD_LOCATION;
 
 	@Autowired
 	private EPPDAO EPPDAO;
@@ -43,6 +43,17 @@ public class EPPController {
 	@Autowired
 	private Mapper dozerMapper;
 
+	@Autowired
+	private AppConfig appConfig;
+	
+	
+	
+	public EPPController(){
+		
+		
+		
+	}
+	
 	@RequestMapping(value = "admin/formAgregarEPP.htm", method = RequestMethod.GET)
 	public ModelAndView getSingleUploadPage(ModelMap model) {
 		ModelAndView mav = new ModelAndView("admin/formularios/formularioAgregarEPP");
@@ -53,9 +64,9 @@ public class EPPController {
 	@RequestMapping("admin/subirArchivo.htm")
 	public ModelAndView guardarArchivo(@RequestParam("file") MultipartFile file, @RequestParam("nombre") String nombre,
 			@RequestParam("descripcion") String descripcion) throws IOException {
-		String url = UPLOAD_LOCATION + file.getOriginalFilename();
+		String url = appConfig.pathIagen() + file.getOriginalFilename();
 		File archivo = new File(url);
-
+		
 		Epp epp = new Epp();
 		epp.setDescripcion(descripcion);
 		epp.setImagen(url);

@@ -7,6 +7,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
@@ -23,15 +28,28 @@ import ar.com.mantenimiento.utility.MultiFileBucket;
 import ar.com.mantenimiento.utility.MultiFileValidator;
  
 @Controller
+@ComponentScan(basePackages = { "ar.com.mantenimiento.*" })
+@PropertySource("classpath:filesystem.properties")
 public class FileUploadController {
  
-    private static String UPLOAD_LOCATION="C:/mytemp/";
+	@Value("${path.images}")
+    private static String UPLOAD_LOCATION;
+//	private static String UPLOAD_LOCATION="C:/mytemp/";
  
     @Autowired
     FileValidator fileValidator;
  
     @Autowired
     MultiFileValidator multiFileValidator;
+    
+    @Autowired
+    String imagesFolder;
+    
+    
+    
+    
+    
+    
  
     @InitBinder("fileBucket")
     protected void initBinderFileBucket(WebDataBinder binder) {
@@ -97,5 +115,11 @@ public class FileUploadController {
             return "multiSuccess";
         }
     }
+    
+	//To resolve ${} in @Value
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
  
 }

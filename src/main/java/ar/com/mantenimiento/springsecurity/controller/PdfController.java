@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.Base64;
-import java.util.List;
 
 import javax.transaction.Transactional;
 

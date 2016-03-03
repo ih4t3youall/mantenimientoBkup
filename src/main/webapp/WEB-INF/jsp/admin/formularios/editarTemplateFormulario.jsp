@@ -71,12 +71,15 @@
 	function acomodarFecha(){
 		var fecha = $('#fechaProgramada').val();
 		
+		
+		if(fecha != ""){
 		var anio = $('#fechaProgramada').val().slice(0,4);
 		var mes =  $('#fechaProgramada').val().slice(5,7);
 		var dia =  $('#fechaProgramada').val().slice(8,10);
 
 		
-		$('#fechaProgramada').datepicker("setDate", new Date(anio,mes,dia) );		
+		$('#fechaProgramada').datepicker("setDate", new Date(anio,mes,dia) );
+		}
 		
 	}
 
