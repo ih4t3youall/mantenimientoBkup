@@ -42,8 +42,6 @@ public class FileUploadController {
     @Autowired
     MultiFileValidator multiFileValidator;
     
-    @Autowired
-    String imagesFolder;
     
     
     

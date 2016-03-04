@@ -70,6 +70,22 @@ public class UserDao extends AbstractDao<Integer, User> implements IUserDao {
 		
 		
 	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> findAllClientes() {
+
+		Criteria crit = createEntityCriteria();
+		return (List<User>) crit.createAlias("userProfiles", "up").add(Restrictions.eq("up.type", "USUARIO")).list();
+		
+		
+		
+		
+	}
+	
+	
 
 	
 }

@@ -325,6 +325,21 @@ li {
 								Empleado</a></li>
 
 					</ul></li>
+					
+					
+					<li><a class="desplegable" href="#" title="Alquiler">Clientes</a>
+					<ul class="subnavegador">
+						
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="getForm('formAsignarCliente.htm')">Asignar cliente
+						</a></li>
+						<li role="presentation"><a href="#" title="Viviendas"
+							onClick="getForm('formDesAsignarEmpleado.htm')">Des-asignar
+								cliente</a></li>
+
+					</ul></li>
+					
+					
 
 
 				<li><a class="desplegable" href="#" title="Alquiler">Formularios</a>

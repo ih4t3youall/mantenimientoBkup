@@ -14,6 +14,8 @@ public interface IUserDao {
 	void crearUsuario(CrearEmpleadoDTO empleadoDTO);
 
 	List<User> findAllEmpleados();
+
+	List<User> findAllClientes();
 	
 }
 

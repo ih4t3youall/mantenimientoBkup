@@ -72,8 +72,16 @@ $(document).ready(
 
 	function submit(id) {
 		
+		var empresaId = $("#acceso").html();
+		//controla que el usuario tenga acceso a esa empresa , tambien se controla del lado del servidor
+		if(empresaId == id ){
 		$('#id').val(id);
 		$('#form').submit();
+		}else{
+			
+			alert("no tiene permisos para ver esa empresa.");
+			
+		}
 
 	}
 </script>
@@ -89,7 +97,7 @@ li {
 
 </head>
 <body>
-
+<p style="display: none;" id="acceso">${empresa_id}</p>
 
 	<div class="container">
 		<h1 id="titulo">Clientes</h1>
@@ -182,6 +190,7 @@ li {
 
 	</div>
 
+<p id="usuarioId" style="display: none;"></p>
 
 	<form:form action="miEmpresa.htm" id="form" method="post"
 		style="display: none;" modelAttribute="empresa">

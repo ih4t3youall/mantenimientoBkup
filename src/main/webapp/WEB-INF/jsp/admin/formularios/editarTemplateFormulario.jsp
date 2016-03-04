@@ -189,7 +189,7 @@
 																		$(
 																				"#eppObligatorio")
 																				.append(
-																						"<img id='"+item.valor+"' src='"+item.url+"'/>");
+																						"<img  id='"+item.valor+"' src='"+item.url+"'/>");
 																	} else {
 
 																		console

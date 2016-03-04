@@ -37,6 +37,9 @@ public class User {
 	@Column(name="LAST_NAME", nullable=false)
 	private String lastName;
 
+	private Integer empresa_id;
+	
+	
 	@Column(name="EMAIL", nullable=false)
 	private String email;
 
@@ -122,6 +125,17 @@ public class User {
 
 	public void setUserProfiles(Set<UserProfile> userProfiles) {
 		this.userProfiles = userProfiles;
+	}
+
+	
+	
+	
+	public Integer getEmpresa_id() {
+		return empresa_id;
+	}
+
+	public void setEmpresa_id(Integer empresa_id) {
+		this.empresa_id = empresa_id;
 	}
 
 	@Override
