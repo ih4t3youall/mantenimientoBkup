@@ -25,7 +25,7 @@ public class DozeerMapperConfiguration {
 	    List<String> mappingFiles = Arrays.asList(
 //	  	      "dozer-global-configuration.xml", 
 //	  	      "dozer-bean-mappings.xml",
-//	  	      "more-dozer-bean-mappings.xml"
+	  	      "formDTOtoForm.xml"
 	  	    );
 	  	    
 	    DozerBeanMapper dozerBean = new DozerBeanMapper();

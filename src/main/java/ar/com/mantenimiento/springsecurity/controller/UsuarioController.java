@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpresaDAO;
+import ar.com.mantenimiento.springsecurity.dao.impl.FormLegacyDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UserDao;
 import ar.com.mantenimiento.springsecurity.model.User;
 
@@ -32,6 +33,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private EmpresaDAO empresaDAO;
+	
+	@Autowired
+	private FormLegacyDAO formLegacyDAO;
 	
 	private User user ;
 	
@@ -91,6 +95,9 @@ public class UsuarioController {
 		
 
 		//controla del lado del servidor que tenga acceso ya que el javascript es hackeable
+		
+		
+		
 		
 		if(empresaDTO.getId() == user.getEmpresa_id()){
 //		mav.setViewName("user/miEmpresa");

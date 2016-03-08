@@ -91,6 +91,45 @@ public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile up
   
   return new ResponseEntity<>(HttpStatus.OK);
 } // method uploadFile
+
+
+@RequestMapping(value = "admin/uploadFileEmpresa", method = RequestMethod.POST)
+@ResponseBody
+public ResponseEntity<?> uploadFileEmpresa(@RequestParam("uploadfile") MultipartFile uploadfile,@RequestParam("idEmpresa") String idEmpresa) {
+  
+	if(uploadfile.getOriginalFilename().equals("")){
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+	
+	
+  try {
+    // Get the filename and build the local file path (be sure that the 
+    // application have write permissions on such directory)
+    String filename = uploadfile.getOriginalFilename();
+    
+    String filepath = Paths.get( appConfig.pathPdf(), filename).toString();
+    
+    // Save the file locally
+    BufferedOutputStream stream =
+        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+    stream.write(uploadfile.getBytes());
+    stream.close();
+    
+//    Maquina maquina = maquinaDAO.getByKey(Integer.parseInt(idMaquina));
+//    maquina.setUrlPdf(filepath);
+//    maquinaDAO.persist(maquina);
+    
+    
+    
+  }
+  catch (Exception e) {
+    System.out.println(e.getMessage());
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+  }
+  
+  return new ResponseEntity<>(HttpStatus.OK);
+} // method uploadFile
    
    
 

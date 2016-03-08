@@ -26,6 +26,9 @@ public class LegacyService {
 		
 		FormLegacy legacy = dozerMapper.map(formDTO, FormLegacy.class);
 		legacy.setLastModifyDate(FechaUtility.getFechaActual());
+		legacy.setIdMaquina(formDTO.getMaquina().getId());
+		legacy.setIdProyecto(formDTO.getProyecto().getId());
+		legacy.setIdEmpresa(formDTO.getEmpresa().getId());
 //		legacy.setFechaRealizacion(FechaUtility.deStringToDate(formDTO.getFechaRealizacion()));
 //		legacy.setFechaProgramada(FechaUtility.deStringToDate(formDTO.getFechaProgramada()));
 		

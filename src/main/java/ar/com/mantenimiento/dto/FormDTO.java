@@ -2,9 +2,11 @@ package ar.com.mantenimiento.dto;
 
 import java.util.List;
 
+import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.entity.FormHasEpp;
 import ar.com.mantenimiento.entity.FormItem;
 import ar.com.mantenimiento.entity.Maquina;
+import ar.com.mantenimiento.entity.Proyecto;
 
 public class FormDTO {
 	private int id;
@@ -30,6 +32,26 @@ public class FormDTO {
 	private List<FormItem> formItems;
 
 	private List<FormHasEpp> formHasEpps;
+
+	private Proyecto proyecto;
+
+	private Empresa empresa;
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
 
 	public int getId() {
 		return id;

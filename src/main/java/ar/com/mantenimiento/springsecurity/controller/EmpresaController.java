@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.com.mantenimiento.entity.Empresa;
@@ -22,19 +23,19 @@ public class EmpresaController {
 	public ModelAndView ajaxMaquinasProyectos() {
 
 		ModelAndView mav = new ModelAndView("admin/formularios/formularioCrearEmpresa");
-		mav.addObject("empresaDTO",new Empresa());
+//		mav.addObject("empresaDTO",new Empresa());
 		return mav;
 
 	}
 	
 	
 	@RequestMapping("admin/crearEmpresa.htm")
-	public ModelAndView ajaxMaquinasProyectos(Empresa empresa) {
-
-		ModelAndView mav = new ModelAndView("admin/exito/crearEmpresaExito");
+	public @ResponseBody  String ajaxMaquinasProyectos(Empresa empresa) {
+ 
+//		ModelAndView mav = new ModelAndView("admin/exito/crearEmpresaExito");
 		empresaDAO.persist(empresa);
 		
-		return mav;
+		return String.valueOf(empresa.getId());
 
 	}
 	

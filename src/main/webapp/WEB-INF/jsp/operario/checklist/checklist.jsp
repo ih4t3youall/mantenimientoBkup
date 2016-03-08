@@ -56,12 +56,34 @@
 		$('#example').DataTable();
 	});
 
+	
+	
+	function acomodarFecha(){
+
+		var fecha = $('#fechaProgramada').html();
+
+
+		if(fecha != ""){
+		var anio = $('#fechaProgramada').html().slice(0,4);
+		var mes =  $('#fechaProgramada').html().slice(5,7);
+		var dia =  $('#fechaProgramada').html().slice(8,10);
+
+
+		$('#fechaProgramada').html(mes+"/"+dia+"/"+anio);
+		}
+	}
+	
 	$(document).ready(
 			function() {
 
 				$(document).ready(
 						function() { // Script del Navegador
 							//porque como hay integers me pisa el placeholder con un cero y en el placeholder esta el valor de cada campo
+								
+							
+							acomodarFecha();				
+							
+							
 							$('.form-control').each(function(index, item) {
 
 								//para evitar que le saque el label al ultimo boton
@@ -112,12 +134,23 @@
 	function submitForm() {
 
 		var form = new Object();
-
+		var maquina = new Object();
+		var proyecto = new Object();
+		var empresa = new Object();
 		form.formItems = [];
 
 		form.observaciones = $("#observaciones2").val();
 		form.aptoServicio = $("#aptoServicio").val();
-
+		maquina.id = parseInt($("#idMaquina").html());
+		empresa.id = $("#idEmpresa").html();
+		proyecto.id = $("#idProyecto").html();
+		form.fechaRealizacion = $("#fechaRealizacion").val();
+		form.fechaProgramada = $("#fechaProgramada").html();
+		
+		
+		form.empresa =empresa;
+		form.proyecto = proyecto;
+		form.maquina = maquina;
 		$(".fila").each(function(index, item) {
 
 			var formItem = new Object();
@@ -272,9 +305,10 @@ $("#pdfObject").width(wWidth-200);
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
 			<img width="150px" src="${empresa.urlImagen}" />
+			<span id="idEmpresa" style="display:none;" >${empresa.id}</span>
 		</div>
 		<div class="col-md-3">
-			<p>CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id <span id="idMaquina">${maquina.id} </span></p>
+			<p>CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id <span id="idMaquina">${maquina.id} </span>, proyecto id <span id="idProyecto">${proyecto.id}</span></p>
 
 		</div>
 		<div class="col-md-2">
@@ -314,7 +348,7 @@ $("#pdfObject").width(wWidth-200);
 		</div>
 		<div class="col-md-2">
 			<!-- FIXME -->
-			<label>${form.fechaProgramada}</label>
+			<label id="fechaProgramada">${form.fechaProgramada}</label>
 		</div>
 		<div class="col-md-1"></div>
 	</div>

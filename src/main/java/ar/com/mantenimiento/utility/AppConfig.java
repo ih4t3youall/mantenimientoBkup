@@ -27,5 +27,13 @@ public class AppConfig {
 		return env.getProperty("path.pdf");
 
 	}
+	
+	@Bean
+	public String pathLogoEmpresa(){
+		
+		return env.getProperty("path.logo");
+		
+		
+	}
 
 }
