@@ -125,11 +125,7 @@ public class AdminController {
 			// FIXME sacar esto a un utility
 			for (EPPDTO eppdto : epps) {
 
-				try {
 					eppdto.setImagen(ImageConverterUtility.convertImage(eppdto.getImagen()));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 				if (eppdto.isObligatorio()) {
 
 					obligatorio.add(eppdto);

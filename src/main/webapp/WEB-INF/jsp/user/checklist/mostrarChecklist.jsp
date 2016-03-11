@@ -56,34 +56,28 @@
 		$('#example').DataTable();
 	});
 
-	
-	
-	function acomodarFecha(){
+	function acomodarFecha() {
 
-		var fecha = $('#fechaProgramada').html();
+		var fecha = $('#fechaRealizacion').html();
 
+		if (fecha != "") {
+			var anio = $('#fechaRealizacion').html().slice(0, 4);
+			var mes = $('#fechaRealizacion').html().slice(5, 7);
+			var dia = $('#fechaRealizacion').html().slice(8, 10);
 
-		if(fecha != ""){
-		var anio = $('#fechaProgramada').html().slice(0,4);
-		var mes =  $('#fechaProgramada').html().slice(5,7);
-		var dia =  $('#fechaProgramada').html().slice(8,10);
-
-
-		$('#fechaProgramada').html(mes+"/"+dia+"/"+anio);
+			$('#fechaRealizacion').html(mes + "/" + dia + "/" + anio);
 		}
 	}
-	
+
 	$(document).ready(
 			function() {
 
 				$(document).ready(
 						function() { // Script del Navegador
 							//porque como hay integers me pisa el placeholder con un cero y en el placeholder esta el valor de cada campo
-								
-							
-							acomodarFecha();				
-							
-							
+
+							acomodarFecha();
+
 							$('.form-control').each(function(index, item) {
 
 								//para evitar que le saque el label al ultimo boton
@@ -138,17 +132,16 @@
 		var proyecto = new Object();
 		var empresa = new Object();
 		form.formItems = [];
-		
+
+		form.observaciones = $("#observaciones2").val();
 		form.aptoServicio = $("#aptoServicio").val();
 		maquina.id = parseInt($("#idMaquina").html());
 		empresa.id = $("#idEmpresa").html();
 		proyecto.id = $("#idProyecto").html();
 		form.fechaRealizacion = $("#fechaRealizacion").val();
 		form.fechaProgramada = $("#fechaProgramada").html();
-		form.observaciones = $("#observaciones2").val();
-		
-		
-		form.empresa =empresa;
+
+		form.empresa = empresa;
 		form.proyecto = proyecto;
 		form.maquina = maquina;
 		$(".fila").each(function(index, item) {
@@ -186,44 +179,38 @@
 	}
 
 	var idModal = "";
-	function modalObservaciones(idSecreto) {
-		idModal = idSecreto;
+	function modalObservaciones(observacion) {
+
 		$("#observaciones").val("");
+		$("#observaciones").val(observacion);
+
 		$('#myModal').modal('show');
 
 	}
-	
-	
-	function modalPdf(){
-		
-		
-		var idMaquina = $("#idMaquina").html();
-		
-		$.ajax({
-			
-			url :"generarPdf.htm",
-			data : "idMaquina="+idMaquina,
-			type : 'GET',
-			success: function (response){
-				
 
-$("#modalPdf").empty();
-$("#modalPdf").append(response);
-var wWidth = $(window).width();
-$("#pdfObject").width(wWidth-200);
-				
+	function modalPdf() {
+
+		var idMaquina = $("#idMaquina").html();
+
+		$.ajax({
+
+			url : "generarPdf.htm",
+			data : "idMaquina=" + idMaquina,
+			type : 'GET',
+			success : function(response) {
+
+				$("#modalPdf").empty();
+				$("#modalPdf").append(response);
+				var wWidth = $(window).width();
+				$("#pdfObject").width(wWidth - 200);
+
 			}
-			
-			
-			
+
 		});
-		
-		
+
 		$('#modalPdf').modal('show');
-		
+
 	}
-	
-	
 
 	function cerrarModalObservaciones(nose) {
 		var observaciones = $("#observaciones").val();
@@ -259,9 +246,9 @@ $("#pdfObject").width(wWidth-200);
 				<div class="modal-body">
 
 					<div class="form-group">
-						<textarea class="form-control" rows="5" id="observaciones"></textarea>
-						<button class="btn btn-secondary" type="button"
-							onClick="cerrarModalObservaciones()">Aceptar</button>
+						<textarea class="form-control" rows="5" id="observaciones"
+							readonly></textarea>
+
 					</div>
 
 
@@ -273,22 +260,26 @@ $("#pdfObject").width(wWidth-200);
 
 		</div>
 	</div>
-<!-- MODAL PDF -->
+	<!-- MODAL PDF -->
 
-<div class="modal fade" id="modalPdf" role="dialog">
-	</div>
-	
-<!-- 	FIN MODAL PDF  -->
+	<div class="modal fade" id="modalPdf" role="dialog"></div>
+
+	<!-- 	FIN MODAL PDF  -->
 
 
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
-			<img width="150px" src="data:image/jpeg;base64,${empresa.urlImagen}" />
-			<span id="idEmpresa" style="display:none;" >${empresa.id}</span>
+			<img width="150px"
+				src="data:image/jpeg;base64,${legacy.empresa.urlImagen}" /> <span
+				id="idEmpresa" style="display: none;">${legacy.empresa.id}</span>
 		</div>
 		<div class="col-md-3">
-			<p>CHECK LIST DE MANTENIMIENTO PREVENTIVO ${maquina.nombre}, maquina id <span id="idMaquina">${maquina.id} </span>, proyecto id <span id="idProyecto">${proyecto.id}</span></p>
+			<p>
+				CHECK LIST DE MANTENIMIENTO PREVENTIVO ${legacy.maquina.nombre},
+				maquina id <span id="idMaquina">${legacy.maquina.id} </span>,
+				proyecto id <span id="idProyecto">${legacy.proyecto.id}</span>
+			</p>
 
 		</div>
 		<div class="col-md-2">
@@ -319,16 +310,14 @@ $("#pdfObject").width(wWidth-200);
 			<label>Fecha realizacion:</label>
 		</div>
 		<div class="col-md-2">
-			<input type="text" aria-describedby="basic-addon1"
-				placeholder="Fecha realizacion" id="fechaRealizacion"
-				class="form-control fecha" />
+			<p id="fechaRealizacion">${legacy.fechaRealizacion}</p>
 		</div>
 		<div class="col-md-2">
 			<label>Fecha Programada: </label>
 		</div>
 		<div class="col-md-2">
 			<!-- FIXME -->
-			<label id="fechaProgramada">${form.fechaProgramada}</label>
+			<label id="fechaProgramada">${legacy.fechaProgramada}</label>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
@@ -343,9 +332,9 @@ $("#pdfObject").width(wWidth-200);
 	</div>
 
 	<!-- 	fin separador -->
-	
-<!-- 	modal mostrar pdf -->
-	
+
+	<!-- 	modal mostrar pdf -->
+
 	<div class="row">
 		<div class="col-md-1"></div>
 
@@ -366,7 +355,7 @@ $("#pdfObject").width(wWidth-200);
 
 
 	</div>
-<!-- fin modal mostrar pdf -->
+	<!-- fin modal mostrar pdf -->
 
 	<!-- 	separador -->
 	<div class="row">
@@ -378,9 +367,9 @@ $("#pdfObject").width(wWidth-200);
 	</div>
 
 	<!-- 	fin separador -->
-	
-	
-	
+
+
+
 
 
 	<div class="row">
@@ -529,24 +518,15 @@ $("#pdfObject").width(wWidth-200);
 				<tbody>
 
 
-					<c:forEach items="${form.formItems}" var="item">
+					<c:forEach items="${legacy.formItemsLegacy}" var="itemLegacy">
 
 						<tr role="row" class="odd fila">
-							<td class="sorting_1"><label>${item.label}</label></td>
-							<td><select>
-									<option>si</option>
-									<option>no</option>
-									<option>N/C</option>
-
-							</select></td>
-							<td><select>
-									<option>B</option>
-									<option>M</option>
-									<option>N/C</option>
-							</select></td>
+							<td class="sorting_1"><label>${itemLegacy.label}</label></td>
+							<td><p>${itemLegacy.posee}</p></td>
+							<td><p>${itemLegacy.estado}</p></td>
 							<td>
 								<button class="btn btn-secondary" type="button"
-									onClick="modalObservaciones('${item.label}secret')">Observaciones</button>
+									onClick="modalObservaciones('${itemLegacy.observaciones}')">Observaciones</button>
 								<p id="${item.label}secret" style="display: none;"></p>
 
 							</td>
@@ -582,7 +562,7 @@ $("#pdfObject").width(wWidth-200);
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
 			<label>Observaciones: </label>
-			<textarea class="form-control" rows="5" id="observaciones2"></textarea>
+			<textarea class="form-control" rows="5" id="observaciones2" readonly>${legacy.observaciones}</textarea>
 
 		</div>
 
@@ -642,13 +622,12 @@ $("#pdfObject").width(wWidth-200);
 		</div>
 
 		<div class="col-md-2">
-
-			<select id="aptoServicio">
-				<option value="true">si</option>
-				<option value="false">no</option>
-
-			</select>
-
+			<c:if test="${legacy.aptoServicio == true}">
+				<p>Si</p>
+			</c:if>
+			<c:if test="${legacy.aptoServicio == false}">
+				<p>No</p>
+			</c:if>
 		</div>
 
 
@@ -667,7 +646,7 @@ $("#pdfObject").width(wWidth-200);
 		<div class="col-md-3"></div>
 		<div class="col-md-4">
 			<button class="btn btn-secondary btn-lg btn-block" type="button"
-				onclick="submitForm()">SUBMIT</button>
+				onclick="javascript:window.close();">Cerrar</button>
 
 
 		</div>
@@ -694,7 +673,7 @@ $("#pdfObject").width(wWidth-200);
 	<!-- 	fin separador -->
 
 
-	<a href="inicio.htm"><input type="button" value="volver" /></a>
+
 
 </body>
 </html>

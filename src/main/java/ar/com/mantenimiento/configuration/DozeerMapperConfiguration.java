@@ -26,6 +26,7 @@ public class DozeerMapperConfiguration {
 //	  	      "dozer-global-configuration.xml", 
 //	  	      "dozer-bean-mappings.xml",
 	  	      "formDTOtoForm.xml"
+//	  	      "legacyDTO.xml"
 	  	    );
 	  	    
 	    DozerBeanMapper dozerBean = new DozerBeanMapper();

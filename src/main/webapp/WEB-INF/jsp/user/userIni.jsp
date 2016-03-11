@@ -158,7 +158,7 @@ li {
 					<div class="panel-heading">${empresa.nombre}</div>
 					<div class="panel-body">
 						<img onclick="submit('${empresa.id}')" height="125px" width="200px" alt=""
-							src="${empresa.urlImagen}">
+							src="data:image/jpeg;base64,${empresa.urlImagen}">
 					</div>
 				</div>
 

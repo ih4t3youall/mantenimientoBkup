@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.com.mantenimiento.dto.EPPDTO;
+import ar.com.mantenimiento.dto.EmpresaDTO;
 import ar.com.mantenimiento.dto.FormDTO;
 import ar.com.mantenimiento.dto.MaquinaDTO;
 import ar.com.mantenimiento.dto.MaquinaProyectoIdDTO;
@@ -59,7 +60,7 @@ public class CheckListController {
 	private LegacyService legacyService;
 
 	@RequestMapping("operario/getCheckListById.htm")
-	public ModelAndView getCheckListById(MaquinaProyectoIdDTO maquinaProyectoId) {
+	public ModelAndView getCheckListById(MaquinaProyectoIdDTO maquinaProyectoId) throws IOException {
 
 		ModelAndView mav = new ModelAndView("operario/checklist/checklist");
 
@@ -67,7 +68,11 @@ public class CheckListController {
 		mav.addObject("proyecto", proyecto);
 
 		Empresa empresa = empresaDAO.findEmpresaByProyectId(maquinaProyectoId.getProyectoId());
-		mav.addObject("empresa", empresa);
+
+		EmpresaDTO empresaDTO = dozerMapper.map(empresa, EmpresaDTO.class);
+
+		empresaDTO.setUrlImagen(ImageConverterUtility.convertImage(empresa.getUrlImagen()));
+		mav.addObject("empresa", empresaDTO);
 
 		Form form = formDAO.findFormByMaquinaId(maquinaProyectoId.getMaquinaId());
 		FormDTO formDTO = dozerMapper.map(form, FormDTO.class);
@@ -79,32 +84,24 @@ public class CheckListController {
 
 		List<EPPDTO> obligatorio = new ArrayList<EPPDTO>();
 		List<EPPDTO> opcional = new ArrayList<EPPDTO>();
-		//FIXME epp dto sacar esto a un utility
+		// FIXME epp dto sacar esto a un utility
 		for (EPPDTO eppdto : epps) {
 
-			try {
-				eppdto.setImagen(ImageConverterUtility.convertImage(eppdto.getImagen()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(eppdto.isObligatorio()){
-				
+			eppdto.setImagen(ImageConverterUtility.convertImage(eppdto.getImagen()));
+			if (eppdto.isObligatorio()) {
+
 				obligatorio.add(eppdto);
-				
-				
-				
-			}else{
-				
+
+			} else {
+
 				opcional.add(eppdto);
-				
+
 			}
-			
+
 		}
-		
-		
-		mav.addObject("eppObligatorio",obligatorio);
-		mav.addObject("eppOpcional",opcional);
+
+		mav.addObject("eppObligatorio", obligatorio);
+		mav.addObject("eppOpcional", opcional);
 
 		mav.addObject("maquina", maquinaDTO);
 
