@@ -276,20 +276,6 @@
 									onclick="mostrarMaquinas(${proyecto.id})"><i
 									class="fa fa-arrow-circle-o-down"></i> ver </span>
 
-								<!-- 								script apto para el servicio -->
-								<!-- 									<span class="count_bottom"> -->
-								<!-- 									Apto para el Servicio -->
-								<%-- 								<c:if test="${legacy.aptoServicio == false}"> --%>
-								<!-- 									<i class="red">No </i>  -->
-
-
-								<%-- 								</c:if> --%>
-								<%-- 								<c:if test="${legacy.aptoServicio == true}"> --%>
-								<!-- 									<i class="green">Si </i>  -->
-
-
-								<%-- 								</c:if> --%>
-								<!-- 									</span> -->
 
 
 
@@ -313,7 +299,7 @@
 						<c:forEach items="${proyecto.maquinas}" var="maquina">
 							<div
 								class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count ${proyecto.id } ocultableMaquina "
-								style="height: 150px; display: none;">
+								style="height: 150px; display: none;" maquinaID="${maquina.id}">
 								<div class="left"></div>
 								<div class="right">
 									<span class="count_top"><i class="fa fa-cogs"></i>
@@ -323,21 +309,6 @@
 									<span class="count_top" style="cursor: pointer; cursor: hand"
 										onclick="mostrarRevisiones(${maquina.id})"><i
 										class="fa fa-arrow-circle-o-down"></i> ver </span>
-
-									<!-- 																script apto para el servicio -->
-									<!-- 																	<span class="count_bottom"> -->
-									<!-- 																	Apto para el Servicio -->
-									<%-- 																<c:if test="${legacy.aptoServicio == false}"> --%>
-									<!-- 																	<i class="red">No </i>  -->
-
-
-									<%-- 																</c:if> --%>
-									<%-- 																<c:if test="${legacy.aptoServicio == true}"> --%>
-									<!-- 																	<i class="green">Si </i>  -->
-
-
-									<%-- 																</c:if> --%>
-									<!-- 																	</span> -->
 
 
 
@@ -368,7 +339,7 @@
 									title="fecha realizacion"></i>
 									<p class="fechaRealizacion">${legacy.fechaRealizacion}</p> </span>
 
-								<div class="count">${fn:length(proyecto.maquinas)}</div>
+<%-- 								<div class="count">${fn:length(proyecto.maquinas)}</div> --%>
 								<span class="count_top" style="cursor: pointer; cursor: hand"
 									onclick="abrirModal('${legacy.idFormLegacy}')"><i
 									class="fa fa-file"></i> abrir </span> <span class="count_bottom">
@@ -1284,7 +1255,22 @@
 		$(".revisiones").hide();
 		$("."+idProyecto).show();
 		
+
+		$("."+idProyecto).each(function (index,item){
+        var idRevision = $(item).attr("maquinaID");
+		var legacy = $(".legacy"+idRevision).length;
+		console.log($(item).find(".count").html(legacy));
+		  
+
+
+		});
 		
+		
+	}
+	
+	function mostrarRevisiones(idMaquina){
+		$(".revisiones").hide();
+		$(".legacy"+idMaquina).show();
 		
 	}
 	
@@ -1365,15 +1351,7 @@
 	}
 	
 	
-	function mostrarRevisiones(idMaquina){
-		$(".revisiones").hide();
-		$(".revisiones").hide();
-		$(".legacy"+idMaquina).show();
-		
-		
-		
-		
-	}
+
 		$(document).ready(
 				function() {
 					

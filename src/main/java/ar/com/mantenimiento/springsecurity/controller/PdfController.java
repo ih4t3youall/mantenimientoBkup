@@ -59,6 +59,20 @@ public class PdfController{
 		
 	}
 	
+	@RequestMapping("user/generarPdf.htm")
+	public @ResponseBody ModelAndView generarPdfUser(int idMaquina) throws MalformedURLException, IOException{
+		
+		
+		
+		
+		return generarPdf(idMaquina);
+		
+		
+		
+		
+		
+	}
+	
 	
 	
 	
