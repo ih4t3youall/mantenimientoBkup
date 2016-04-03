@@ -15,15 +15,15 @@
 
 
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">NomUs</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="ssoId" type="text" aria-describedby="basic-addon1"
-				placeholder="Nombre usuario" class="form-control" />
+				placeholder="Nombre Usuario" class="form-control" />
 
 		</div>
 		<br>
 
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">pas</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="password" type="text"
 				aria-describedby="basic-addon1" placeholder="Apellido"
 				class="form-control" />
@@ -31,7 +31,7 @@
 		</div>
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">NP</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="firstName" type="text"
 				aria-describedby="basic-addon1" placeholder="Nombre Persona"
 				class="form-control" />
@@ -40,7 +40,7 @@
 
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Ap</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="lastName" type="text"
 				aria-describedby="basic-addon1" placeholder="Apellido"
 				class="form-control" />
@@ -48,9 +48,9 @@
 		</div>
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">@</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="email" type="text" aria-describedby="basic-addon1"
-				placeholder="email" class="form-control" />
+				placeholder="Email" class="form-control" />
 
 		</div>
 		<br>

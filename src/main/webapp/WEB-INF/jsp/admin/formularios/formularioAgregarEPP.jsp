@@ -6,9 +6,20 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="file">Upload a file</label>
 					<div class="col-md-7">
-						<input type="file" id="file" name="file" class="form-control input-sm"/>
-						<input type="text" id="nombre" name="nombre" class="form-control input-sm"/>
-						<input type="text" id="descripcion" name="descripcion" class="form-control input-sm"/>
+					    <div class="input-group">
+			            	<span id="basic-addon1" class="input-group-addon"></span>
+							<input type="file" id="file" name="file" class="form-control input-sm" aria-describedby="basic-addon1"/>
+						</div>
+						<br>
+						<div class="input-group">
+			            	<span id="basic-addon1" class="input-group-addon"></span>
+							<input type="text" id="nombre" name="nombre" class="form-control input-sm" placeholder="Nombre" aria-describedby="basic-addon1"/>
+						</div>
+						<br>
+						<div class="input-group">
+			            	<span id="basic-addon1" class="input-group-addon"></span>
+							<input type="text" id="descripcion" name="descripcion" class="form-control input-sm" placeholder="Descripcion" aria-describedby="basic-addon1"/>
+						</div>
 						<div class="has-error">
 						</div>
 					</div>

@@ -29,7 +29,7 @@
 
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Nom</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="nombreProyecto" type="text" aria-describedby="basic-addon1"
 				placeholder="Nombre" class="form-control" />
 
@@ -37,7 +37,7 @@
 
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Desc</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="descripcionProyecto" type="text"
 				aria-describedby="basic-addon1" placeholder="Descripcion"
 				class="form-control" />

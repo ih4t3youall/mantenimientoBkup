@@ -14,14 +14,14 @@
 
 
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Nom</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="nombre" type="text" aria-describedby="basic-addon1"
 				placeholder="Nombre" class="form-control" />
 
 		</div>
 		<br>
 		<div class="input-group">
-			<span id="basic-addon1" class="input-group-addon">Desc</span>
+			<span id="basic-addon1" class="input-group-addon"></span>
 			<form:input path="descripcion" type="text" aria-describedby="basic-addon1"
 				placeholder="Descripcion" class="form-control" />
 
@@ -33,7 +33,7 @@
 
 
 		<input type="button" onclick="submitForm('formCrearMaquina')"
-			value="Crear" class="form-control" placeholder="Username"
+			value="Crear" class="form-control btn btn-primary" placeholder="Username"
 			aria-describedby="basic-addon1">
 
 	</form:form>

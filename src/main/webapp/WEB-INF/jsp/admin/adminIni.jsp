@@ -206,8 +206,14 @@
 
 		} else {
 
-			alert('debe completar todos los campos');
-
+			//alert('debe completar todos los campos');
+			$.notify({
+				// options
+				message: 'Le falta completar un campo' 
+			},{
+				// settings
+				type: 'danger'
+			});
 		}
 
 	}
