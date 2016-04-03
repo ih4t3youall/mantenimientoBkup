@@ -209,7 +209,7 @@
 			//alert('debe completar todos los campos');
 			$.notify({
 				// options
-				message: 'Le falta completar un campo' 
+				message: 'Todos los campos son obligatorios.' 
 			},{
 				// settings
 				type: 'danger'

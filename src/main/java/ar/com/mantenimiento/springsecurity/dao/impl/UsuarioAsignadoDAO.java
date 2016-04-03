@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.com.mantenimiento.entity.Empresa;
 import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.entity.UsuarioAsignado;
 import ar.com.mantenimiento.springsecurity.dao.AbstractDao;
@@ -45,5 +45,6 @@ public class UsuarioAsignadoDAO extends AbstractDao<Integer, UsuarioAsignado>  i
 		
 		
 	}
+
 
 }

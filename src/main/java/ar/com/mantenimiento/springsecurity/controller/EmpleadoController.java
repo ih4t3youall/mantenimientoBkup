@@ -20,6 +20,7 @@ import ar.com.mantenimiento.entity.Proyecto;
 import ar.com.mantenimiento.entity.UsuarioAsignado;
 import ar.com.mantenimiento.springsecurity.dao.impl.EmpresaDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoDAO;
+import ar.com.mantenimiento.springsecurity.dao.impl.ProyectoHasUsuarioAsignadoDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UserDao;
 import ar.com.mantenimiento.springsecurity.dao.impl.UserProfileDAO;
 import ar.com.mantenimiento.springsecurity.dao.impl.UsuarioAsignadoDAO;
@@ -50,6 +51,10 @@ public class EmpleadoController {
 	
 	@Autowired
 	private Mapper dozerMapper;
+	
+	@Autowired
+	private ProyectoHasUsuarioAsignadoDAO ProyectoHasUsuarioAsignadoDAO;
+	
 	
 	
 	
@@ -121,6 +126,7 @@ public class EmpleadoController {
 		
 		
 		Proyecto proyecto = proyectoDAO.findProyectoByProyectId(asociacion.getIdProyecto());
+		User findBySSO = userDAO.findBySSO(asociacion.getNombreEmpleado());
 		
 		UsuarioAsignado usAsig = new UsuarioAsignado();
 		
@@ -128,10 +134,18 @@ public class EmpleadoController {
 		
 		usAsig.addProyecto(proyecto);
 		usAsig.setSsoId(asociacion.getNombreEmpleado());
-		usuarioAsignadoDAO.persist(usAsig);
 		
+		if(ProyectoHasUsuarioAsignadoDAO.existeAsignacion(findBySSO.getId(),proyecto.getId())){
+			mav.setViewName("error/errorGenerico");
+			mav.addObject("mensaje","La asignacion ya existe");
+			mav.addObject("url","adminIni.htm");
+			return mav;
 		
+		}else{
+			usuarioAsignadoDAO.persist(usAsig);	
 		
+			
+		}
 		
 		return mav;
 		
